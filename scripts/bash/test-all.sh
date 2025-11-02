@@ -5,24 +5,24 @@
 # REEMPLAZA: Workflows de pruebas en GitHub Actions
 #
 # PROPÓSITO:
-#   Ejecutar la suite de tests de Python de forma local con las mismas
+#   Ejecutar la suite de tests con BATS de forma local con las mismas
 #   garantías que en CI.
 #
 # USO:
-#   ./scripts/bash/test-all.sh [pytest args]
+#   ./scripts/bash/test-all.sh [bats args]
 #
 # OPCIONES (variables de entorno):
-#   PYTEST_ARGS="-k smoke"   Argumentos adicionales para pytest
+#   BATS_ARGS="--filter smoke"   Argumentos adicionales para bats
 #
 # REQUISITOS:
-#   - Python 3.11+
-#   - pytest
+#   - Bash 4.0+
+#   - bats-core
 ################################################################################
 
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-cd "$ROOT_DIR"
+cd "$ROOT_DIR" || exit 1
 
 log() {
   printf "[test-all] %s\n" "$*"
@@ -35,20 +35,21 @@ require_command() {
   fi
 }
 
-run_pytest() {
-  require_command pytest
+run_bats() {
+  require_command bats
 
-  local args=("--maxfail=1" "--disable-warnings" "-q")
+  local args=()
 
-  if [[ -n "${PYTEST_ARGS:-}" ]]; then
-    # shellcheck disable=SC2206
-    args+=(${PYTEST_ARGS})
+  if [[ -n "${BATS_ARGS:-}" ]]; then
+    # Expandir BATS_ARGS correctamente sin word splitting
+    IFS=' ' read -ra bats_array <<< "${BATS_ARGS}"
+    args+=("${bats_array[@]}")
   fi
 
-  log "Ejecutando pytest ${args[*]}"
-  pytest "${args[@]}"
+  log "Ejecutando bats ${args[*]}"
+  bats "${args[@]}" test/test.bats
 }
 
-run_pytest
+run_bats
 
 log "Tests completados"

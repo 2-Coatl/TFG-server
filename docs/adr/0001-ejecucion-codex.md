@@ -1,5 +1,11 @@
 # ADR 0001: Reimplementación de la herramienta Codex CLI en Shell
 
+**Estado**: DEPRECADO - Reemplazado por [ADR 0002: Migración a Makefile](0002-migracion-makefile.md)
+
+**Fecha de deprecación**: 2025-11-02
+
+---
+
 ## Contexto
 
 El proyecto necesitaba una forma estandarizada de orquestar tareas de desarrollo (pruebas, análisis estático, etc.) sin depender de scripts dispersos. Además, se solicitó habilitar la ejecución de "codex" dentro del monolito utilizando exclusivamente Shell y PostScript.
