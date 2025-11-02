@@ -12,6 +12,7 @@ Esta carpeta agrupa las especificaciones de requisitos siguiendo ISO/IEC/IEEE 29
 ## Artefactos transversales
 - `trazabilidad_general.md`: matriz Need → Requirement → Design → Test.
 - `registro_maestro.md`: inventario maestro alineado con atributos ISO 5.2.8.
+- `casos_de_uso.md`: guía completa para especificar e ilustrar casos de uso.
 
 ## Referencias
 - BABOK v3: KA 5 y KA 7.

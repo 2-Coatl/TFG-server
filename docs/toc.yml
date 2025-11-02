@@ -30,6 +30,9 @@
   href: necesidades_negocio/readme.md
 - name: Requisitos Integrados
   href: requisitos/readme.md
+  items:
+    - name: Casos de Uso
+      href: requisitos/casos_de_uso.md
 - name: Tareas de Análisis (BABOK)
   href: tareas_analisis/readme.md
 - name: Diseño de la Solución
