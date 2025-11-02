@@ -26,3 +26,21 @@
       href: scripts/development.md
     - name: Mantenimiento
       href: scripts/maintenance.md
+- name: Necesidades de Negocio (BRS)
+  href: necesidades_negocio/readme.md
+- name: Requisitos Integrados
+  href: requisitos/readme.md
+- name: Tareas de Análisis (BABOK)
+  href: tareas_analisis/readme.md
+- name: Diseño de la Solución
+  href: diseno_solucion/readme.md
+- name: Implementación Técnica
+  href: implementacion/readme.md
+- name: Validación y Evaluación
+  href: validacion_evaluacion/readme.md
+- name: Gobernanza de Requisitos
+  href: gobernanza/readme.md
+- name: Anexos
+  href: anexos/readme.md
+- name: Plantillas Normativas
+  href: plantillas/readme.md
