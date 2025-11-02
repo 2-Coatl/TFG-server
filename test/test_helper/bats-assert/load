@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Minimal assertion helpers inspired by bats-assert.
+
+assert_success() {
+  if [[ "${status:-0}" -ne 0 ]]; then
+    echo "expected command to succeed, but exited with ${status:-0}" >&2
+    return 1
+  fi
+}
+
+assert_failure() {
+  if [[ "${status:-0}" -eq 0 ]]; then
+    echo "expected command to fail, but it succeeded" >&2
+    return 1
+  fi
+}
+
+assert_output() {
+  local mode="exact"
+  local expected
+  if [[ "$1" == "--partial" ]]; then
+    mode="partial"
+    shift
+  fi
+  expected="$1"
+  if [[ -z "$expected" ]]; then
+    echo "assert_output requires an expected value" >&2
+    return 1
+  fi
+  if [[ "$mode" == "partial" ]]; then
+    if [[ "${output:-}" != *"$expected"* ]]; then
+      echo "expected output to contain '$expected' but was '${output:-}'" >&2
+      return 1
+    fi
+  else
+    if [[ "${output:-}" != "$expected" ]]; then
+      echo "expected output to equal '$expected' but was '${output:-}'" >&2
+      return 1
+    fi
+  fi
+}
+
+refute_output() {
+  local unexpected="$1"
+  if [[ -z "$unexpected" ]]; then
+    echo "refute_output requires an unexpected value" >&2
+    return 1
+  fi
+  if [[ "${output:-}" == "$unexpected" ]]; then
+    echo "expected output not to equal '$unexpected'" >&2
+    return 1
+  fi
+}
