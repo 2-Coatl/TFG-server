@@ -1,0 +1,6 @@
+{
+  "name": "tfg-server",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "features": {},
+  "postCreateCommand": "./.devcontainer/post-create.sh"
+}
