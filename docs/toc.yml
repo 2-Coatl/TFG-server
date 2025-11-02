@@ -19,6 +19,8 @@
       href: automation/linting.md
     - name: Git Hooks
       href: automation/git-hooks.md
+    - name: Migración desde GitHub Actions
+      href: automation/migracion-github-actions.md
 - name: Scripts
   href: scripts/index.md
   items:
@@ -39,10 +41,21 @@
   href: diseno_solucion/readme.md
 - name: Implementación Técnica
   href: implementacion/readme.md
+  items:
+    - name: Guías de desarrollo backend
+      href: implementacion/backend/guias_desarrollo/README.md
+      items:
+        - name: Desarrollo guiado por especificaciones
+          href: implementacion/backend/guias_desarrollo/spec-driven-development.md
 - name: Validación y Evaluación
   href: validacion_evaluacion/readme.md
 - name: Gobernanza de Requisitos
   href: gobernanza/readme.md
+  items:
+    - name: Planificación de Releases
+      href: gobernanza/planificacion/README.md
+    - name: Roadmap trimestral
+      href: gobernanza/planificacion/roadmap.md
 - name: Anexos
   href: anexos/readme.md
 - name: Plantillas Normativas

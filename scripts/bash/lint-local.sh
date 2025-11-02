@@ -54,8 +54,6 @@ run_markdown_lint() {
     "**/*.md" \
     "#docs/_site/**" \
     "#media/**" \
-    "#memory/**" \
-    "#templates/**" \
     "#venv/**" \
     "#.venv/**" \
     "#node_modules/**"
