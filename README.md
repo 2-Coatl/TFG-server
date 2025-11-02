@@ -36,3 +36,8 @@ La salida utiliza prefijos como `[INFO]`, `[RUNNING]`, `[SUCCESS]` y `[ERROR]` s
 ## Documentación de decisiones
 
 Las decisiones arquitectónicas se registran en `docs/adr`. Consulta `docs/adr/0001-ejecucion-codex.md` para detalles sobre la CLI en Shell.
+
+Para ampliar la comprensión sobre la estructura documental y su alineación con marcos de análisis de negocio y gestión de proyectos, revisa los análisis en `docs/analisis/`:
+
+- [Análisis de la estructura documental frente a BABOK](docs/analisis/analisis_estructura_docs_babok.md)
+- [Evaluación de alineación BABOK y PMBOK 7](docs/analisis/analisis_estructura_docs_babok_pmbok7.md)
