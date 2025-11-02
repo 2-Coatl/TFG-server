@@ -11,7 +11,8 @@ docs/
 │   ├── analisis_estructura_docs_babok_pmbok7.md
 │   └── analisis_estructura_docs_babok_pmbok7_iso29148.md
 ├── estandares/
-│   └── diferencias_solicitud_requisito_requirements_tasks.md
+│   ├── diferencias_solicitud_requisito_requirements_tasks.md
+│   └── reglas_negocio_ingenieria_requerimientos.md
 ├── plantillas/
 │   ├── plantilla_acta_elicitacion.md
 │   ├── plantilla_catalogo_requisitos_iso29148.md
