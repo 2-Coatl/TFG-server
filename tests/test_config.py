@@ -1,82 +1,89 @@
-"""Pruebas para la carga del archivo de configuración de Codex."""
+"""Pruebas sobre la validación del archivo de configuración en Shell."""
 
+from __future__ import annotations
+
+import subprocess
 from pathlib import Path
 
-import pytest
 
-from codex.config import CodexConfig
+CLI_PATH = Path(__file__).resolve().parents[1] / "bin" / "codex"
 
 
-@pytest.fixture
-def config_path(tmp_path: Path) -> Path:
-    """Crea un archivo de configuración básico para las pruebas."""
-    contenido = """
+def ejecutar(*argumentos: str, config: Path | None = None, cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
+    comando = [str(CLI_PATH)]
+    if config is not None:
+        comando.extend(["--config", str(config)])
+    comando.extend(argumentos)
+    return subprocess.run(
+        comando,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        cwd=cwd,
+    )
+
+
+def test_error_si_no_hay_version(tmp_path: Path) -> None:
+    """La configuración debe declarar explícitamente la versión."""
+
+    ruta = tmp_path / "codex.toml"
+    ruta.write_text(
+        """
+[[tareas]]
+nombre = "demo"
+comando = ["echo", "hola"]
+""".strip(),
+        encoding="utf-8",
+    )
+
+    resultado = ejecutar("listar", config=ruta)
+
+    assert resultado.returncode == 2
+    assert "version" in resultado.stderr.lower()
+
+
+def test_error_si_version_incorrecta(tmp_path: Path) -> None:
+    """Las versiones distintas de 1 deben rechazarse."""
+
+    ruta = tmp_path / "codex.toml"
+    ruta.write_text(
+        """
+version = 2
+
+[[tareas]]
+nombre = "demo"
+comando = ["echo", "hola"]
+""".strip(),
+        encoding="utf-8",
+    )
+
+    resultado = ejecutar("listar", config=ruta)
+
+    assert resultado.returncode == 2
+    assert "version" in resultado.stderr.lower()
+
+
+def test_ejecucion_con_directorio_relativo(tmp_path: Path) -> None:
+    """El comando debe ejecutarse en el directorio indicado en la configuración."""
+
+    destino = tmp_path / "subdir"
+    destino.mkdir()
+    marcador = destino / "registro.txt"
+
+    ruta = tmp_path / "codex.toml"
+    ruta.write_text(
+        """
 version = 1
 
 [[tareas]]
-nombre = "pruebas"
-descripcion = "Ejecuta la suite de pruebas"
-comando = ["python", "-m", "pytest"]
-directorio = "tests"
+nombre = "guardar"
+comando = ["bash", "-c", "echo ok > registro.txt"]
+directorio = "subdir"
+""".strip(),
+        encoding="utf-8",
+    )
 
-[[tareas]]
-nombre = "lint"
-descripcion = "Analiza el código"
-comando = ["python", "-m", "flake8"]
-"""
-    ruta = tmp_path / "codex.toml"
-    ruta.write_text(contenido, encoding="utf-8")
-    return ruta
+    resultado = ejecutar("ejecutar", "guardar", config=ruta, cwd=tmp_path)
 
-
-def test_carga_tareas_desde_archivo(config_path: Path) -> None:
-    """Verifica que se carguen las tareas declaradas en el archivo."""
-    configuracion = CodexConfig.from_file(config_path)
-
-    tarea = configuracion.get_task("pruebas")
-    assert tarea.nombre == "pruebas"
-    assert tarea.descripcion == "Ejecuta la suite de pruebas"
-    assert tarea.comando == ["python", "-m", "pytest"]
-    assert tarea.directorio.name == "tests"
-
-    tareas = configuracion.list_tasks()
-    assert [t.nombre for t in tareas] == ["lint", "pruebas"]
-
-
-def test_error_por_tareas_repetidas(tmp_path: Path) -> None:
-    """Dos tareas con el mismo nombre deben generar un error."""
-    contenido = """
-version = 1
-
-[[tareas]]
-nombre = "duplicada"
-comando = ["python"]
-
-[[tareas]]
-nombre = "duplicada"
-comando = ["python"]
-"""
-    ruta = tmp_path / "codex.toml"
-    ruta.write_text(contenido, encoding="utf-8")
-
-    with pytest.raises(ValueError) as error:
-        CodexConfig.from_file(ruta)
-
-    assert "duplicada" in str(error.value)
-
-
-def test_error_por_campo_incompleto(tmp_path: Path) -> None:
-    """Una tarea sin comando debe generar un error descriptivo."""
-    contenido = """
-version = 1
-
-[[tareas]]
-nombre = "invalida"
-"""
-    ruta = tmp_path / "codex.toml"
-    ruta.write_text(contenido, encoding="utf-8")
-
-    with pytest.raises(ValueError) as error:
-        CodexConfig.from_file(ruta)
-
-    assert "comando" in str(error.value)
+    assert resultado.returncode == 0
+    assert marcador.read_text(encoding="utf-8").strip() == "ok"

@@ -1,88 +1,190 @@
-"""Pruebas para la interfaz de línea de comandos de Codex."""
+"""Pruebas para la interfaz de línea de comandos de Codex en Shell."""
 
+from __future__ import annotations
+
+import subprocess
 from pathlib import Path
-from typing import List
+from typing import Iterable
 
 import pytest
 
-from codex import cli
+
+CLI_PATH = Path(__file__).resolve().parents[1] / "bin" / "codex"
 
 
-@pytest.fixture
-def config_path(tmp_path: Path) -> Path:
-    """Genera un archivo de configuración para las pruebas de la CLI."""
-    contenido = """
-version = 1
+def escribir_configuracion(base: Path, lineas: Iterable[str]) -> Path:
+    """Crea un archivo ``codex.toml`` con el contenido indicado."""
 
-[[tareas]]
-nombre = "pruebas"
-descripcion = "Ejecuta la suite de pruebas"
-comando = ["python", "-m", "pytest"]
-"""
-    ruta = tmp_path / "codex.toml"
+    contenido = "\n".join(lineas)
+    ruta = base / "codex.toml"
     ruta.write_text(contenido, encoding="utf-8")
     return ruta
 
 
-def test_listar_muestra_tareas_ordenadas(config_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def ejecutar_codex(*argumentos: str, config: Path | None = None, cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
+    """Invoca el script de codex y captura su salida."""
+
+    comando = [str(CLI_PATH)]
+    if config is not None:
+        comando.extend(["--config", str(config)])
+    comando.extend(argumentos)
+    return subprocess.run(
+        comando,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        cwd=cwd,
+    )
+
+
+def test_listar_muestra_tareas_ordenadas(tmp_path: Path) -> None:
     """La salida debe enumerar las tareas en orden alfabético."""
-    codigo = cli.main(["--config", str(config_path), "listar"])
-    salida = capsys.readouterr().out
 
-    assert codigo == 0
-    assert "[INFO]" in salida
-    assert "pruebas" in salida
+    config = escribir_configuracion(
+        tmp_path,
+        [
+            "version = 1",
+            "",
+            "[[tareas]]",
+            "nombre = \"pruebas\"",
+            "descripcion = \"Ejecuta pruebas\"",
+            "comando = [\"echo\", \"hola\"]",
+            "",
+            "[[tareas]]",
+            "nombre = \"analisis\"",
+            "descripcion = \"Analiza el codigo\"",
+            "comando = [\"echo\", \"adios\"]",
+        ],
+    )
 
+    resultado = ejecutar_codex("listar", config=config)
 
-def test_ejecutar_invoca_subproceso(monkeypatch: pytest.MonkeyPatch, config_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    """La tarea debe ejecutar el comando configurado."""
-    registros: List[List[str]] = []
-
-    def falso_run(comando: List[str], cwd: str | None = None, check: bool = False) -> None:
-        registros.append(comando)
-
-    monkeypatch.setattr(cli.subprocess, "run", falso_run)
-
-    codigo = cli.main(["--config", str(config_path), "ejecutar", "pruebas"])
-    salida = capsys.readouterr().out
-
-    assert codigo == 0
-    assert registros == [["python", "-m", "pytest"]]
-    assert "[RUNNING]" in salida
-    assert "[SUCCESS]" in salida
-
-
-def test_ejecutar_reporta_error_si_comando_falla(monkeypatch: pytest.MonkeyPatch, config_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    """Un error en el comando debe reportarse con el código adecuado."""
-    def falso_run(comando: List[str], cwd: str | None = None, check: bool = False) -> None:
-        raise cli.subprocess.CalledProcessError(returncode=5, cmd=comando)
-
-    monkeypatch.setattr(cli.subprocess, "run", falso_run)
-
-    codigo = cli.main(["--config", str(config_path), "ejecutar", "pruebas"])
-    salida = capsys.readouterr()
-
-    assert codigo == 5
-    assert "[ERROR]" in salida.err
-    assert "pruebas" in salida.err
+    assert resultado.returncode == 0
+    assert "[INFO] analisis" in resultado.stdout
+    assert resultado.stdout.index("analisis") < resultado.stdout.index("pruebas")
 
 
-def test_error_si_no_existe_configuracion(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_ejecutar_invoca_comando(tmp_path: Path) -> None:
+    """La tarea debe ejecutar el comando configurado en el directorio indicado."""
+
+    script = tmp_path / "registro.sh"
+    script.write_text("#!/usr/bin/env bash\necho ejecutado >> salida.log\n", encoding="utf-8")
+    script.chmod(0o755)
+
+    config = escribir_configuracion(
+        tmp_path,
+        [
+            "version = 1",
+            "",
+            "[[tareas]]",
+            "nombre = \"registrar\"",
+            "descripcion = \"Guarda un registro\"",
+            f"comando = [\"{script}\"]",
+            "directorio = \".\"",
+        ],
+    )
+
+    resultado = ejecutar_codex("ejecutar", "registrar", config=config, cwd=tmp_path)
+
+    assert resultado.returncode == 0
+    assert "[RUNNING]" in resultado.stdout
+    assert "[SUCCESS]" in resultado.stdout
+    assert (tmp_path / "salida.log").read_text(encoding="utf-8").strip() == "ejecutado"
+
+
+def test_ejecutar_reporta_error_si_comando_falla(tmp_path: Path) -> None:
+    """Un comando con error debe propagar el código de salida y reportarlo."""
+
+    config = escribir_configuracion(
+        tmp_path,
+        [
+            "version = 1",
+            "",
+            "[[tareas]]",
+            "nombre = \"fallar\"",
+            "comando = [\"bash\", \"-c\", \"exit 5\"]",
+        ],
+    )
+
+    resultado = ejecutar_codex("ejecutar", "fallar", config=config)
+
+    assert resultado.returncode == 5
+    assert "[ERROR]" in resultado.stderr
+    assert "'fallar'" in resultado.stderr
+
+
+def test_error_si_no_existe_configuracion(tmp_path: Path) -> None:
     """La CLI debe avisar si el archivo de configuración no está presente."""
-    ruta = tmp_path / "codex.toml"
-    codigo = cli.main(["--config", str(ruta), "listar"])
-    salida = capsys.readouterr()
 
-    assert codigo == 2
-    assert "[ERROR]" in salida.err
-    assert "configuración" in salida.err
+    ruta = tmp_path / "inexistente.toml"
+    resultado = ejecutar_codex("listar", config=ruta)
+
+    assert resultado.returncode == 2
+    assert "[ERROR]" in resultado.stderr
+    assert "inexistente" in resultado.stderr
 
 
-def test_error_si_tarea_desconocida(config_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_error_si_tarea_desconocida(tmp_path: Path) -> None:
     """Ejecutar una tarea inexistente debe devolver un error controlado."""
-    codigo = cli.main(["--config", str(config_path), "ejecutar", "desconocida"])
-    salida = capsys.readouterr()
 
-    assert codigo == 1
-    assert "[ERROR]" in salida.err
-    assert "desconocida" in salida.err
+    config = escribir_configuracion(
+        tmp_path,
+        [
+            "version = 1",
+            "",
+            "[[tareas]]",
+            "nombre = \"unica\"",
+            "comando = [\"echo\", \"ok\"]",
+        ],
+    )
+
+    resultado = ejecutar_codex("ejecutar", "desconocida", config=config)
+
+    assert resultado.returncode == 1
+    assert "[ERROR]" in resultado.stderr
+    assert "desconocida" in resultado.stderr
+
+
+def test_error_por_tareas_repetidas(tmp_path: Path) -> None:
+    """Las tareas duplicadas deben generar un error descriptivo."""
+
+    config = escribir_configuracion(
+        tmp_path,
+        [
+            "version = 1",
+            "",
+            "[[tareas]]",
+            "nombre = \"duplicada\"",
+            "comando = [\"echo\", \"uno\"]",
+            "",
+            "[[tareas]]",
+            "nombre = \"duplicada\"",
+            "comando = [\"echo\", \"dos\"]",
+        ],
+    )
+
+    resultado = ejecutar_codex("listar", config=config)
+
+    assert resultado.returncode == 2
+    assert "[ERROR]" in resultado.stderr
+    assert "duplicada" in resultado.stderr
+
+
+def test_error_por_comando_incompleto(tmp_path: Path) -> None:
+    """Una tarea sin comando debe ser rechazada durante la carga."""
+
+    config = escribir_configuracion(
+        tmp_path,
+        [
+            "version = 1",
+            "",
+            "[[tareas]]",
+            "nombre = \"sin_comando\"",
+        ],
+    )
+
+    resultado = ejecutar_codex("listar", config=config)
+
+    assert resultado.returncode == 2
+    assert "[ERROR]" in resultado.stderr
+    assert "sin_comando" in resultado.stderr
