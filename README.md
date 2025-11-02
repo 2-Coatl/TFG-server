@@ -33,6 +33,27 @@ La salida utiliza prefijos como `[INFO]`, `[RUNNING]`, `[SUCCESS]` y `[ERROR]` s
 2. Añade nuevas tareas en `codex.toml` cuando incorpores herramientas.
 3. Mantén sincronizada la documentación en PostScript (`docs/estandares-shell-postscript.ps`).
 
+## 🚀 Automatización
+
+El proyecto utiliza scripts shell para ejecutar todas las validaciones sin
+depender de GitHub Actions.
+
+```bash
+# Validación completa (CI)
+./scripts/bash/ci-local.sh
+
+# Crear release
+./scripts/bash/release-local.sh
+
+# Generar documentación
+./scripts/bash/build-docs.sh
+```
+
+Los git hooks instalados con `./scripts/bash/spec-hooks-install.sh` ejecutan
+validaciones automáticas en `pre-commit`, `pre-push` y `post-commit`.
+
+Consulta la documentación completa en `docs/automation/ci-cd.md`.
+
 ## Documentación de decisiones
 
 Las decisiones arquitectónicas se registran en `docs/adr`. Consulta `docs/adr/0001-ejecucion-codex.md` para detalles sobre la CLI en Shell.

@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
+################################################################################
+# update-agent-context.sh - Actualización del contexto del agente
+#
+# PROPÓSITO:
+#   Refrescar la información y configuraciones necesarias para el agente Codex.
+#
+# USO:
+#   ./scripts/bash/update-agent-context.sh
+################################################################################
+
 set -euo pipefail
 
-# Placeholder script: update-agent-context.sh
-
-echo "Executing update-agent-context.sh"
+echo "[update-agent-context] Actualizando contexto del agente (placeholder)"
