@@ -31,6 +31,11 @@ Aplica a: `docs/index.md`, `docs/analisis/`, `docs/estandares/`, plantillas, reg
 - % de documentos revisados respecto al total planificado.
 - Tiempo promedio desde identificación de brecha hasta actualización documentada.
 
+## Referencias
+- `docs/gobernanza/procesos/proceso_revision_documental.md`
+- `docs/gobernanza/estandares/`
+- `docs/validacion_evaluacion/metricas_calidad/`
+
 ## Historial de revisiones
 | Fecha | Descripción | Responsable |
 | --- | --- | --- |
