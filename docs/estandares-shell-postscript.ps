@@ -1,0 +1,72 @@
+%!PS-Adobe-3.0
+%%Title: Estandares de Codigo para Shell y PostScript
+%%Creator: Equipo TFG
+%%Pages: 1
+%%BoundingBox: 0 0 612 792
+%%EndComments
+
+/TitleFont /Helvetica-Bold findfont 16 scalefont def
+/SectionFont /Helvetica-Bold findfont 12 scalefont def
+/BodyFont /Helvetica findfont 10 scalefont def
+/newline { 0 -14 rmoveto } def
+/printline {
+  dup length 0 eq
+    { pop newline }
+    { show newline }
+  ifelse
+} def
+
+72 780 moveto
+TitleFont setfont
+(Estandares de Codigo para Shell y PostScript) show
+newline
+newline
+
+SectionFont setfont
+(Principios generales) show
+newline
+BodyFont setfont
+(- TDD primero: escribir pruebas automatizadas antes de implementar.) printline
+(- Portabilidad: preferir construcciones POSIX y documentar dependencias.) printline
+(- Documentacion clara: actualizar comentarios y ADR ante cambios relevantes.) printline
+(- Mensajeria consistente: usar prefijos [INFO], [RUNNING], [SUCCESS] y [ERROR].) printline
+newline
+
+SectionFont setfont
+(Estandares para Shell) show
+newline
+BodyFont setfont
+(- Shebang adecuado: #!/usr/bin/env bash cuando se requiera Bash.) printline
+(- Modo estricto: habilitar set -euo pipefail al inicio.) printline
+(- Funciones descriptivas: nombres en minusculas con guion bajo y comentarios breves.) printline
+(- Variables protegidas: usar local y readonly segun corresponda.) printline
+(- Validar entradas: comprobar rutas y argumentos antes de operar.) printline
+(- Formato: sangria de dos espacios y lineas maximas de 100 caracteres.) printline
+(- Seguridad: citar variables para evitar expansiones inesperadas y documentar eval.) printline
+(- Salidas ordenadas: reservar stderr para errores y definir codigos de retorno.) printline
+newline
+
+SectionFont setfont
+(Estandares para PostScript) show
+newline
+BodyFont setfont
+(- Encabezado informativo con proposito, autor y fecha.) printline
+(- Procedimientos con nombres descriptivos y comentarios sobre parametros.) printline
+(- Uso de diccionarios dedicados para encapsular estado.) printline
+(- Comentarios % para explicar bloques y valores especiales.) printline
+(- Formato: sangria de dos espacios y separacion entre procedimientos.) printline
+(- Control de errores: validar la pila antes de operaciones criticas.) printline
+(- Salida determinista: restablecer la matriz grafica y otros estados globales.) printline
+newline
+
+SectionFont setfont
+(Calidad y herramientas) show
+newline
+BodyFont setfont
+(- Revisiones con commits en formato Conventional Commits.) printline
+(- Linting: emplear shellcheck u otras herramientas disponibles.) printline
+(- Automatizacion: integrar los scripts en la CI mediante codex ejecutar pruebas.) printline
+(- Mantener esta guia en PostScript como fuente de verdad para Shell y PostScript.) printline
+
+showpage
+%%EOF
