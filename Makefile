@@ -54,9 +54,7 @@ lint-markdown:
 			"**/*.md" \
 			"#docs/_site/**" \
 			"#media/**" \
-			"#memory/**" \
-			"#templates/**" \
-			"#venv/**" \
+                        "#venv/**" \
 			"#.venv/**" \
 			"#node_modules/**"; \
 	else \

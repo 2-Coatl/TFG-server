@@ -8,3 +8,4 @@ pueden correrse en cualquier entorno compatible.
 - [Proceso de releases](releases.md)
 - [Políticas de linting](linting.md)
 - [Git hooks instalados](git-hooks.md)
+- [Migración desde GitHub Actions](migracion-github-actions.md)

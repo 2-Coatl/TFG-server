@@ -7,3 +7,4 @@ Define procesos, checklists y estándares para asegurar la conformidad con ISO/I
 - `checklists/`: listas de verificación para requisitos individuales y conjuntos.
 - `estandares/`: guías y reglas normativas.
 - `baselines/`: registros de baselines aprobados y su contexto.
+- `planificacion/`: roadmap maestro y cadencia de releases.
