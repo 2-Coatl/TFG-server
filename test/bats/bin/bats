@@ -1,0 +1,209 @@
+#!/usr/bin/env python3
+"""Minimal Bats test runner used for offline development."""
+import argparse
+import os
+import re
+import subprocess
+import sys
+import tempfile
+from typing import List, Tuple
+
+
+def _strip_shebang(lines: List[str]) -> List[str]:
+    if lines and lines[0].startswith("#!/"):  # shebang line from .bats files
+        return lines[1:]
+    return lines
+
+
+def _consume_block(lines: List[str], start_index: int) -> Tuple[List[str], int]:
+    body: List[str] = []
+    i = start_index
+    while i < len(lines):
+        if lines[i].strip() == "}":
+            return body, i + 1
+        body.append(lines[i])
+        i += 1
+    raise ValueError("Unterminated block in bats file")
+
+
+def _parse_tests(path: str) -> Tuple[List[str], List[str], List[Tuple[str, List[str]]]]:
+    with open(path, "r", encoding="utf-8") as handle:
+        raw_lines = handle.readlines()
+
+    lines = _strip_shebang(raw_lines)
+    setup_lines: List[str] = []
+    teardown_lines: List[str] = []
+    tests: List[Tuple[str, List[str]]] = []
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip()
+        if not stripped:
+            i += 1
+            continue
+        if stripped.startswith("setup()") and stripped.endswith("{"):
+            body, next_index = _consume_block(lines, i + 1)
+            setup_lines = body
+            i = next_index
+            continue
+        if stripped.startswith("teardown()") and stripped.endswith("{"):
+            body, next_index = _consume_block(lines, i + 1)
+            teardown_lines = body
+            i = next_index
+            continue
+        if stripped.startswith("@test"):
+            match = re.match(r"@test\s+\"(.*?)\"\s*\{", stripped)
+            if not match:
+                raise ValueError(f"Invalid @test declaration in {path}: {line.rstrip()}" )
+            description = match.group(1)
+            body, next_index = _consume_block(lines, i + 1)
+            tests.append((description, body))
+            i = next_index
+            continue
+        i += 1
+
+    return setup_lines, teardown_lines, tests
+
+
+def _script_header(test_path: str, description: str) -> List[str]:
+    abs_path = os.path.abspath(test_path)
+    return [
+        "#!/usr/bin/env bash",
+        "set -euo pipefail",
+        f'BATS_TEST_FILENAME="{abs_path}"',
+        'BATS_TEST_DIRNAME="$(cd \"$(dirname \"$BATS_TEST_FILENAME\")\" >/dev/null 2>&1 && pwd)"',
+        f'BATS_TEST_NAME="{description}"',
+        "status=0",
+        "output=''",
+        "error=''",
+        "skip() {",
+        "  local message=\"${1:-}\"",
+        "  if [[ -n \"$message\" ]]; then",
+        "    echo \"skip: $message\"",
+        "  else",
+        "    echo \"skip\"",
+        "  fi",
+        "  exit 0",
+        "}",
+        "load() {",
+        "  local relative=\"$1\"",
+        "  if [[ -z \"$relative\" ]]; then",
+        "    echo \"load: missing target\" >&2",
+        "    return 1",
+        "  fi",
+        "  # shellcheck disable=SC1090",
+        "  source \"$BATS_TEST_DIRNAME/$relative\"",
+        "}",
+        "run() {",
+        "  local tmp_stdout tmp_stderr",
+        "  tmp_stdout=$(mktemp)",
+        "  tmp_stderr=$(mktemp)",
+        "  set +e",
+        "  \"$@\" >\"$tmp_stdout\" 2>\"$tmp_stderr\"",
+        "  status=$?",
+        "  set -e",
+        "  output=$(cat \"$tmp_stdout\")",
+        "  error=$(cat \"$tmp_stderr\")",
+        "  rm -f \"$tmp_stdout\" \"$tmp_stderr\"",
+        "  return 0",
+        "}",
+    ]
+
+
+def _maybe_wrap_block(name: str, body: List[str]) -> List[str]:
+    if not body:
+        return []
+    wrapped = [f"{name}() {{"]
+    wrapped.extend(line.rstrip("\n") for line in body)
+    wrapped.append("}")
+    return wrapped
+
+
+def _test_body(body: List[str]) -> List[str]:
+    wrapped = ["bats_test_body() {"]
+    wrapped.extend(line.rstrip("\n") for line in body)
+    wrapped.append("}")
+    return wrapped
+
+
+def _script_footer() -> List[str]:
+    return [
+        "if declare -f setup >/dev/null 2>&1; then",
+        "  setup",
+        "fi",
+        "bats_test_body",
+        "test_status=$?",
+        "if declare -f teardown >/dev/null 2>&1; then",
+        "  teardown",
+        "fi",
+        "exit $test_status",
+    ]
+
+
+def _run_single_test(test_path: str, description: str, body: List[str], setup: List[str], teardown: List[str]) -> Tuple[int, str, str]:
+    script_lines: List[str] = []
+    script_lines.extend(_script_header(test_path, description))
+    script_lines.extend(_maybe_wrap_block("setup", setup))
+    script_lines.extend(_maybe_wrap_block("teardown", teardown))
+    script_lines.extend(_test_body(body))
+    script_lines.extend(_script_footer())
+
+    with tempfile.NamedTemporaryFile("w", delete=False) as handle:
+        handle.write("\n".join(script_lines))
+        temp_path = handle.name
+    os.chmod(temp_path, 0o755)
+
+    try:
+        completed = subprocess.run(["bash", temp_path], capture_output=True, text=True)
+        return completed.returncode, completed.stdout, completed.stderr
+    finally:
+        os.unlink(temp_path)
+
+
+def run_file(path: str) -> int:
+    setup, teardown, tests = _parse_tests(path)
+    if not tests:
+        print(f"warning: {os.path.basename(path)} does not contain tests", file=sys.stderr)
+        return 0
+
+    failures = 0
+    for index, (description, body) in enumerate(tests, start=1):
+        code, stdout, stderr = _run_single_test(path, description, body, setup, teardown)
+        prefix = "ok" if code == 0 else "not ok"
+        print(f"{prefix} {index} - {description}")
+        if stdout.strip():
+            print(stdout.rstrip())
+        if stderr.strip():
+            print(stderr.rstrip(), file=sys.stderr)
+        if code != 0:
+            failures += 1
+    return failures
+
+
+def collect_targets(targets: List[str]) -> List[str]:
+    resolved: List[str] = []
+    for target in targets:
+        if os.path.isdir(target):
+            for root, _, files in os.walk(target):
+                for file in sorted(files):
+                    if file.endswith(".bats"):
+                        resolved.append(os.path.join(root, file))
+        else:
+            resolved.append(target)
+    return resolved
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Execute Bats tests without the upstream dependency")
+    parser.add_argument("targets", nargs="+", help="Test files or directories")
+    args = parser.parse_args()
+
+    failures = 0
+    for target in collect_targets(args.targets):
+        failures += run_file(target)
+    return 1 if failures else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

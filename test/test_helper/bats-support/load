@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Minimal subset of bats-support helpers used by the local runner.
+
+batslib_is_function() {
+  local name="$1"
+  if [[ -z "$name" ]]; then
+    return 1
+  fi
+  declare -f "$name" >/dev/null 2>&1
+}
