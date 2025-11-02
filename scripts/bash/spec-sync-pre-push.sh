@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
+################################################################################
+# spec-sync-pre-push.sh - Validaciones previas al push
+#
+# PROPÓSITO:
+#   Ejecutar validaciones completas (linting, tests, documentación) antes de
+#   subir cambios al repositorio remoto.
+#
+# USO:
+#   ./scripts/bash/spec-sync-pre-push.sh
+################################################################################
+
 set -euo pipefail
 
-# Placeholder script: spec-sync-pre-push.sh
-
-echo "Executing spec-sync-pre-push.sh"
+echo "[spec-sync-pre-push] Ejecutando validaciones pre-push (placeholder)"

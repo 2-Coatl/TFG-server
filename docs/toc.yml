@@ -8,3 +8,21 @@
   href: quickstart.md
 - name: Triage Framework
   href: triage-framework.md
+- name: Automatización
+  href: automation/index.md
+  items:
+    - name: CI/CD
+      href: automation/ci-cd.md
+    - name: Releases
+      href: automation/releases.md
+    - name: Linting
+      href: automation/linting.md
+    - name: Git Hooks
+      href: automation/git-hooks.md
+- name: Scripts
+  href: scripts/index.md
+  items:
+    - name: Desarrollo
+      href: scripts/development.md
+    - name: Mantenimiento
+      href: scripts/maintenance.md

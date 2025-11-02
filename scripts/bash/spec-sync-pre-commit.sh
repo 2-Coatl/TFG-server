@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
+################################################################################
+# spec-sync-pre-commit.sh - Sincronización previa al commit
+#
+# PROPÓSITO:
+#   Ejecutar validaciones y sincronizaciones rápidas antes de crear un commit.
+#
+# USO:
+#   ./scripts/bash/spec-sync-pre-commit.sh
+################################################################################
+
 set -euo pipefail
 
-# Placeholder script: spec-sync-pre-commit.sh
-
-echo "Executing spec-sync-pre-commit.sh"
+echo "[spec-sync-pre-commit] Ejecutando sincronización previa al commit (placeholder)"

@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
+################################################################################
+# spec-sync-post-commit.sh - Sincronización posterior a commits
+#
+# PROPÓSITO:
+#   Actualizar especificaciones y documentación inmediatamente después de un
+#   commit.
+#
+# USO:
+#   ./scripts/bash/spec-sync-post-commit.sh
+################################################################################
+
 set -euo pipefail
 
-# Placeholder script: spec-sync-post-commit.sh
-
-echo "Executing spec-sync-post-commit.sh"
+echo "[spec-sync-post-commit] Sincronizando especificaciones post-commit (placeholder)"
