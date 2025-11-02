@@ -1,0 +1,78 @@
+# codex.toml.example
+#
+# ARCHIVO HISTÓRICO - NO SE USA
+#
+# Este archivo es una referencia de cómo habría sido la configuración para
+# la herramienta bin/codex, que fue eliminada en favor de Makefile estándar.
+#
+# Ver ADR 0002 para detalles sobre la migración:
+#   docs/adr/0002-migracion-makefile.md
+#
+# Migración de comandos:
+#   ./bin/codex listar          → make help
+#   ./bin/codex ejecutar test   → make test
+#   ./bin/codex ejecutar lint   → make lint
+#   ./bin/codex ejecutar docs   → make docs
+#   ./bin/codex ejecutar ci     → make ci
+
+version = 1
+
+[[tareas]]
+nombre = "test"
+descripcion = "Ejecutar suite de tests con BATS"
+comando = ["bats", "test/test.bats"]
+directorio = "."
+
+[[tareas]]
+nombre = "lint"
+descripcion = "Ejecutar linters (markdown + shell)"
+comando = ["./scripts/bash/lint-local.sh"]
+directorio = "."
+
+[[tareas]]
+nombre = "lint-markdown"
+descripcion = "Validar archivos Markdown"
+comando = ["markdownlint-cli2", "**/*.md"]
+directorio = "."
+
+[[tareas]]
+nombre = "lint-shell"
+descripcion = "Validar scripts shell con shellcheck"
+comando = ["find", "scripts", "-name", "*.sh", "-exec", "shellcheck", "{}", "+"]
+directorio = "."
+
+[[tareas]]
+nombre = "docs"
+descripcion = "Generar documentación con DocFX"
+comando = ["./scripts/bash/build-docs.sh"]
+directorio = "."
+
+[[tareas]]
+nombre = "docs-serve"
+descripcion = "Generar y servir documentación localmente"
+comando = ["./scripts/bash/build-docs.sh", "--serve"]
+directorio = "."
+
+[[tareas]]
+nombre = "ci"
+descripcion = "Ejecutar pipeline completo de CI"
+comando = ["./scripts/bash/ci-local.sh"]
+directorio = "."
+
+[[tareas]]
+nombre = "release"
+descripcion = "Ejecutar proceso de release"
+comando = ["./scripts/bash/release-local.sh"]
+directorio = "."
+
+[[tareas]]
+nombre = "clean"
+descripcion = "Limpiar archivos generados"
+comando = ["rm", "-rf", "docs/_site"]
+directorio = "."
+
+[[tareas]]
+nombre = "version"
+descripcion = "Mostrar versión del proyecto"
+comando = ["./src/project.sh", "--version"]
+directorio = "."

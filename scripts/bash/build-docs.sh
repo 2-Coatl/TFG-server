@@ -23,6 +23,12 @@
 
 set -euo pipefail
 
+# Verificar versión de Bash
+if [[ ${BASH_VERSINFO[0]:-0} -lt 4 ]]; then
+  echo "[build-docs] ERROR: Requiere Bash 4 o superior." >&2
+  exit 2
+fi
+
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 DOCS_DIR="$ROOT_DIR/docs"
 SITE_DIR="$DOCS_DIR/_site"
@@ -57,7 +63,7 @@ serve_site() {
   require_command python3
 
   log "Sirviendo documentación en http://localhost:${port}"
-  (cd "$SITE_DIR" && python3 -m http.server "$port")
+  (cd "$SITE_DIR" || { log "ERROR: No se pudo cambiar a $SITE_DIR"; exit 1; }; python3 -m http.server "$port")
 }
 
 build_site
