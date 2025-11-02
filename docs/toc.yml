@@ -1,0 +1,10 @@
+- name: Introducción
+  href: index.md
+- name: Instalación
+  href: installation.md
+- name: Desarrollo Local
+  href: local-development.md
+- name: Inicio Rápido
+  href: quickstart.md
+- name: Triage Framework
+  href: triage-framework.md
