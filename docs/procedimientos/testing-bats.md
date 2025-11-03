@@ -1,6 +1,6 @@
 # Estrategia de pruebas con Bats
 
-Este documento describe los pasos para migrar la suite de pruebas del proyecto hacia [Bats](https://bats-core.readthedocs.io), siguiendo las recomendaciones del tutorial oficial. El objetivo es reemplazar la dependencia de pytest por un flujo basado en scripts Bash que podamos ejecutar tanto en entornos locales como en la integración continua.
+Este documento describe los pasos para migrar la suite de pruebas del proyecto hacia [Bats](<https://bats-core.readthedocs.i>o), siguiendo las recomendaciones del tutorial oficial. El objetivo es reemplazar la dependencia de pytest por un flujo basado en scripts Bash que podamos ejecutar tanto en entornos locales como en la integración continua.
 
 ## Estructura del repositorio
 
@@ -18,23 +18,27 @@ test/
 Para añadirlos ejecuta:
 
 ```bash
-git submodule add https://github.com/bats-core/bats-core.git test/bats
-git submodule add https://github.com/bats-core/bats-support.git test/test_helper/bats-support
-git submodule add https://github.com/bats-core/bats-assert.git test/test_helper/bats-assert
+git submodule add <https://github.com/bats-core/bats-core.git> test/bats
+git submodule add <https://github.com/bats-core/bats-support.git> test/test_helper/bats-support
+git submodule add <https://github.com/bats-core/bats-assert.git> test/test_helper/bats-assert
 ```
 
 ## Primer test
 
 1. Crea un archivo `test/test.bats` con una primera prueba:
+
    ```bash
    @test "puede ejecutar el script" {
        ./src/project.sh
    }
    ```
+
 2. Ejecuta las pruebas con:
+
    ```bash
    ./test/bats/bin/bats test/test.bats
    ```
+
 3. Si el script aún no existe verás un error (`status 127`). Crea el archivo `src/project.sh`, dale permisos de ejecución y vuelve a lanzar las pruebas.
 
 ## Configuración de entorno en las pruebas

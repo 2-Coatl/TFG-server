@@ -17,10 +17,13 @@ con `RELEASE_DRY_RUN=1` y omitir la publicación remota con `SKIP_PUBLISH=1`.
 1. **check-release-exists.sh** – Verifica si la versión ya fue publicada.
 2. **get-next-version.sh** – Calcula la siguiente versión semántica.
 3. **update-version.sh** – Actualiza archivos como `pyproject.toml` y
+
    `CHANGELOG.md`.
+
 4. **generate-release-notes.sh** – Genera el resumen de cambios.
 5. **create-release-packages.sh** – Construye los artefactos distribuibles.
 6. **create-github-release.sh** – Publica la release (puede adaptarse a cualquier
+
    proveedor).
 
 Todos los scripts residen en `scripts/bash/release/` y comparten la variable de
@@ -35,6 +38,8 @@ entorno `RELEASE_DRY_RUN`.
 ## Consejos prácticos
 
 - Ejecuta `./scripts/bash/test-all.sh` antes del release para asegurar la suite
+
   verde.
+
 - Revisa el `CHANGELOG.md` para confirmar que contiene las entradas esperadas.
 - Usa `SKIP_PUBLISH=1` cuando quieras revisar los artefactos sin subirlos.

@@ -61,22 +61,29 @@ La salida utiliza prefijos como `[INFO]`, `[SUCCESS]` y `[ERROR]` siguiendo la g
 El proyecto utiliza **Makefile** y scripts shell para ejecutar todas las validaciones sin depender de GitHub Actions.
 
 ```bash
+
 # Validación completa (CI)
+
 make ci
 
 # Crear release
+
 make release
 
 # Generar documentación
+
 make docs
 
 # O directamente con los scripts:
+
 ./scripts/bash/ci-local.sh
 ./scripts/bash/release-local.sh
 ./scripts/bash/build-docs.sh
 ```
 
-Los git hooks instalados con `make install-hooks` (o `./scripts/bash/spec-hooks-install.sh`) ejecutan validaciones automáticas en `pre-commit`, `pre-push` y `post-commit`.
+Los git hooks instalados con `make install-hooks` (o
+`./scripts/bash/spec-hooks-install.sh`) ejecutan validaciones automáticas en
+`pre-commit`, `pre-push` y `post-commit`.
 
 Consulta la documentación completa en `docs/automation/ci-cd.md`.
 
@@ -84,10 +91,17 @@ Consulta la documentación completa en `docs/automation/ci-cd.md`.
 
 Las decisiones arquitectónicas se registran en `docs/adr`:
 
-- [ADR 0002: Migración a Makefile](docs/adr/0002-migracion-makefile.md) - Sistema actual de automatización
-- [ADR 0001: Codex CLI](docs/adr/0001-ejecucion-codex.md) - **DEPRECADO** (reemplazado por Makefile)
+- [ADR 0002: Migración a Makefile](docs/adr/0002-migracion-makefile.md) -
 
-Para ampliar la comprensión sobre la estructura documental y su alineación con marcos de análisis de negocio y gestión de proyectos, revisa los análisis en `docs/analisis/`:
+  Sistema actual de automatización
+
+- [ADR 0001: Codex CLI](docs/adr/0001-ejecucion-codex.md) - **DEPRECADO**
+
+  (reemplazado por Makefile)
+
+Para ampliar la comprensión sobre la estructura documental y su alineación con
+marcos de análisis de negocio y gestión de proyectos, revisa los análisis en
+`docs/analisis/`:
 
 - [Análisis de la estructura documental frente a BABOK](docs/analisis/analisis_estructura_docs_babok.md)
 - [Evaluación de alineación BABOK y PMBOK 7](docs/analisis/analisis_estructura_docs_babok_pmbok7.md)

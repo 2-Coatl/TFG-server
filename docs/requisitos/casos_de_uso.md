@@ -5,9 +5,11 @@
 Un **caso de uso** describe una secuencia de interacciones entre un sistema y un actor que permite alcanzar un resultado de valor para dicho actor. Constituye una visión funcional centrada en el usuario y en el comportamiento observable del sistema.
 
 ### Historia
+
 Los casos de uso fueron introducidos en 1986 por **Ivar Jacobson**, uno de los principales impulsores del Lenguaje Unificado de Modelado (UML) y del Proceso Unificado.
 
 ### Casos de uso vs. Escenarios
+
 - **Caso de uso**: descripción completa de cómo un actor del mundo real interactúa con el sistema para alcanzar un objetivo específico.
 - **Escenario**: instancia particular del caso de uso (también llamado flujo o curso) que narra paso a paso la interacción actor–sistema.
 
@@ -60,12 +62,14 @@ Cada caso de uso contendrá los escenarios que describen cómo se alcanza el obj
 Un **actor** es cualquier entidad (persona, sistema externo, hardware, base de datos) que interactúa con el sistema para ejecutar un caso de uso.
 
 Buenas prácticas:
+
 - Capitalizar los nombres de actores en la especificación.
 - Identificar **actores primarios** (disparan/ejecutan el caso de uso) y **actores secundarios** (proveen servicios o soporte).
 
 ### 5.2 Escenarios
 
 Un **escenario** es una secuencia específica de pasos entre actores y sistema. Características:
+
 - Relata una historia particular del uso del sistema.
 - Recorre un camino específico dentro del caso de uso.
 - También se denomina **instancia del caso de uso**.
@@ -110,12 +114,14 @@ Este formato facilita visualizar la interacción alternada entre actor y sistema
 ## 8. Diagramas UML de Casos de Uso
 
 Elementos principales:
+
 - **Actores**: representados como figuras de palo.
 - **Casos de uso**: óvalos con el nombre en formato verbo + objeto.
 - **Relaciones**: líneas y flechas que indican interacción.
 - **Límite del sistema**: rectángulo que enmarca los casos de uso.
 
 Interpretación de flechas:
+
 - De actor → caso de uso: el actor es **primario** y dispara el caso.
 - De caso de uso → actor: el actor es **secundario** y brinda soporte.
 
@@ -174,13 +180,14 @@ Las precondiciones son opcionales (0..n). Las postcondiciones capturan el estado
 **Identificador:** UC-04 (C4)  
 **Nombre:** Solicitar producto químico  
 **Creado por:** Flor  
-**Fecha de creación:** _[definir]_  
+**Fecha de creación:** *[definir]*  
 **Actores primarios:** Solicitante  
 **Actores secundarios:** Comprador, Base de datos  
 **Descripción:** Permite que un solicitante registre la petición de un producto químico.  
 **Disparador:** El solicitante inicia una solicitud de producto químico.
 
 ### Condiciones
+
 - **Precondiciones:**
   - El solicitante está autenticado en el sistema.
   - Existe un catálogo de productos químicos disponible.
@@ -189,6 +196,7 @@ Las precondiciones son opcionales (0..n). Las postcondiciones capturan el estado
   - El comprador es notificado.
 
 ### Curso normal
+
 1. El solicitante accede al módulo de solicitudes.
 2. El sistema muestra el catálogo disponible.
 3. El solicitante selecciona el producto deseado.
@@ -199,17 +207,20 @@ Las precondiciones son opcionales (0..n). Las postcondiciones capturan el estado
 8. El sistema notifica al comprador.
 
 ### Flujo alterno 4.1 – Producto no disponible
+
 1. El sistema informa que el producto no está disponible.
 2. El sistema sugiere alternativas.
 3. El solicitante elige un producto alterno.
 4. El flujo regresa al paso 5 del curso normal.
 
 #### Excepción 4.1.1 – Producto no encontrado
+
 1. El sistema muestra un error.
 2. El sistema permite solicitar la inclusión del producto.
 3. El caso de uso finaliza.
 
 ### Información adicional
+
 - **Prioridad:** Alta.
 - **Frecuencia de uso:** Diaria.
 - **Reglas de negocio:** BR-28, BR-31.

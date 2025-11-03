@@ -3,6 +3,7 @@
 Contiene requisitos funcionales y de calidad de la solución.
 
 ## Subcarpetas destacadas
+
 - `funcionales/`: capacidades del sistema (ISO 9.5.5).
 - `no_funcionales/`: atributos de calidad (ISO 9.5.7-9.5.14).
 - `interfaces/`: interfaces internas y externas (ISO 9.5.8).

@@ -7,15 +7,21 @@ El proyecto ejecuta todo el ciclo de validaciones mediante **Makefile** y script
 ### Flujo de desarrollo diario
 
 ```bash
+
 # 1. Crear nueva feature
+
 ./scripts/bash/create-new-feature.sh
 
 # 2. Implementar cambios
+
 ./scripts/bash/implement.sh
 
 # 3. Validar antes de publicar
+
 make ci
+
 # O directamente: ./scripts/bash/ci-local.sh
+
 ```
 
 Los git hooks instalados por `./scripts/bash/spec-hooks-install.sh` ejecutan:
@@ -27,10 +33,13 @@ Los git hooks instalados por `./scripts/bash/spec-hooks-install.sh` ejecutan:
 ### Flujo de validación continua
 
 ```bash
+
 # Ejecuta todas las validaciones (recomendado)
+
 make ci
 
 # O directamente con el script:
+
 ./scripts/bash/ci-local.sh
 ```
 
@@ -47,10 +56,13 @@ Cada paso puede omitirse con variables de entorno (`SKIP_LINT`, `SKIP_TESTS`,
 ### Flujo de release
 
 ```bash
+
 # Ejecuta el proceso completo de release (recomendado)
+
 make release
 
 # O directamente con el script:
+
 ./scripts/bash/release-local.sh
 ```
 
@@ -69,19 +81,23 @@ Todos los scripts viven en `scripts/bash/release/` y soportan la variable
 ### Flujo de documentación
 
 ```bash
+
 # Generar documentación estática (recomendado)
+
 make docs
 
 # Servir la documentación localmente
+
 make docs-serve
 
 # O directamente con los scripts:
+
 ./scripts/bash/build-docs.sh
 ./scripts/bash/build-docs.sh --serve
 ```
 
 La generación utiliza DocFX (`docfx build docs/docfx.json`). Con `--serve` se
-levanta un servidor simple en `http://localhost:8080`.
+levanta un servidor simple en `<http://localhost:8080`.>
 
 ## 🔧 Scripts y Comandos Disponibles
 
@@ -113,13 +129,17 @@ levanta un servidor simple en `http://localhost:8080`.
 ## 📋 Configuración inicial
 
 ```bash
+
 # 1. Instalar git hooks
+
 ./scripts/bash/spec-hooks-install.sh
 
 # 2. Verificar prerequisitos de herramientas
+
 ./scripts/bash/check-prerequisites.sh
 
 # 3. Inicializar constitución del equipo
+
 ./scripts/bash/setup-constitution.sh
 ```
 

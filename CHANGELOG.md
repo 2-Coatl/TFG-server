@@ -2,8 +2,8 @@
 
 Todos los cambios notables del proyecto se documentan en este archivo.
 
-El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.0.0/),
-y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
+El formato se basa en [Keep a Changelog](<https://keepachangelog.com/es/1.0.0>/),
+y este proyecto adhiere a [Semantic Versioning](<https://semver.org/lang/es>/).
 
 ## [Unreleased]
 
@@ -81,5 +81,6 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 ## [1.0.0] - Histórico
 
 ### Added
+
 - Initial scaffolding of project structure
 - Implementación de bin/codex en Shell (ver ADR 0001 - DEPRECADO)

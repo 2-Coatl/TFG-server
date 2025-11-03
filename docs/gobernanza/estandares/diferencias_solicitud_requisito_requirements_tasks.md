@@ -1,4 +1,5 @@
 # Diferencias entre Solicitud, Requisito, Requirements y Tasks
+
 ## Según Estándares Internacionales de Análisis de Negocio
 
 ---
@@ -164,6 +165,7 @@ En el contexto de proyectos internacionales o documentación en inglés, se util
 **DEFINICION OPERACIONAL:**
 
 Una tarea es una unidad de trabajo completa, específica y accionable que:
+
 - Tiene entradas definidas
 - Aplica técnicas específicas
 - Produce salidas concretas
@@ -326,6 +328,7 @@ REQUISITOS DE STAKEHOLDERS
 **ETAPA 1: De Necesidad a Requisitos de Negocio**
 
 Tareas BABOK involucradas:
+
 - 6.1 Analizar el Estado Actual
 - 6.2 Definir el Estado Futuro
 - 6.4 Definir la Estrategia de Cambio
@@ -333,6 +336,7 @@ Tareas BABOK involucradas:
 **ETAPA 2: De Requisitos de Negocio a Requisitos de Stakeholders**
 
 Tareas BABOK involucradas:
+
 - 4.1 Preparar la Elicitación
 - 4.2 Conducir la Elicitación
 - 4.3 Confirmar los Resultados de Elicitación
@@ -340,6 +344,7 @@ Tareas BABOK involucradas:
 **ETAPA 3: De Requisitos de Stakeholders a Requisitos de Solución**
 
 Tareas BABOK involucradas:
+
 - 7.1 Especificar y Modelar Requisitos
 - 7.2 Verificar Requisitos
 - 7.3 Validar Requisitos
@@ -348,6 +353,7 @@ Tareas BABOK involucradas:
 **ETAPA 4: De Requisitos de Solución a Implementación**
 
 Tareas BABOK involucradas:
+
 - 7.5 Definir Opciones de Diseño
 - 7.6 Analizar el Valor Potencial y Recomendar Solución
 - 5.5 Aprobar Requisitos
@@ -355,6 +361,7 @@ Tareas BABOK involucradas:
 **ACTIVIDADES TRANSVERSALES (Durante todo el proceso):**
 
 Tareas BABOK involucradas:
+
 - 5.1 Rastrear Requisitos
 - 5.2 Mantener Requisitos
 - 5.3 Priorizar Requisitos
@@ -509,6 +516,7 @@ REQ-TRN-003: "Durante el primer mes de operación, el sistema antiguo debe mante
 ### 5.3 ENFOQUE HIBRIDO
 
 Muchas organizaciones usan un enfoque híbrido:
+
 - Requisitos de negocio estables y definidos al inicio
 - Requisitos de solución refinados iterativamente
 - Tareas planificadas en ondas o fases
@@ -599,36 +607,46 @@ Muchas organizaciones usan un enfoque híbrido:
 ### 8.1 REFERENCIAS PRINCIPALES
 
 **[BABOK-v3] IIBA (International Institute of Business Analysis).** (2015). *A Guide to the Business Analysis Body of Knowledge (BABOK® Guide), Version 3.0*. Toronto, Canada: IIBA.  
-URL: https://www.iiba.org/career-resources/a-business-analysis-professionals-foundation-for-success/babok/
+
+URL: <https://www.iiba.org/career-resources/a-business-analysis-professionals-foundation-for-success/babok/>
 
 **[PMBOK-7] PMI (Project Management Institute).** (2021). *A Guide to the Project Management Body of Knowledge (PMBOK® Guide), 7th Edition*. Newtown Square, PA: PMI.  
-URL: https://www.pmi.org/pmbok-guide-standards/foundational/pmbok
+
+URL: <https://www.pmi.org/pmbok-guide-standards/foundational/pmbok>
 
 **[PMBOK-LEXICON] PMI (Project Management Institute).** (2024). *PMI Lexicon of Project Management Terms, Version 4.0*. Newtown Square, PA: PMI.  
-URL: https://www.pmi.org/pmbok-guide-standards/lexicon
+
+URL: <https://www.pmi.org/pmbok-guide-standards/lexicon>
 
 **[IEEE-29148] ISO/IEC/IEEE.** (2018). *ISO/IEC/IEEE 29148:2018 - Systems and software engineering — Life cycle processes — Requirements engineering*. Geneva, Switzerland: ISO/IEC/IEEE.  
-URL: https://www.iso.org/standard/72089.html
+
+URL: <https://www.iso.org/standard/72089.html>
 
 **[IREB-GLOSSARY] IREB (International Requirements Engineering Board).** (2025). *CPRE Online Glossary*. IREB e.V.  
-URL: https://cpre.ireb.org/en/downloads-and-resources/glossary
+
+URL: <https://cpre.ireb.org/en/downloads-and-resources/glossary>
 
 ### 8.2 REFERENCIAS COMPLEMENTARIAS
 
 **[BABOK-NEEDS] Barker, K., Frisbie, K.** (2015). *Needs and Solutions, Requirements and Designs*. IIBA.  
-URL: https://www.iiba.org/professional-development/knowledge-centre/articles/needs-and-solutions/
+
+URL: <https://www.iiba.org/professional-development/knowledge-centre/articles/needs-and-solutions/>
 
 **[ELGENDY-2018] Elgendy, M.** (2018). *Business Needs vs. Requirements*. LinkedIn.  
-URL: https://www.linkedin.com/pulse/business-needs-vs-requirements-mohamed-elgendy
+
+URL: <https://www.linkedin.com/pulse/business-needs-vs-requirements-mohamed-elgendy>
 
 **[PEDIAA-2021] Hasanthi.** (2021). *What is the Difference Between Need and Requirement*. Pediaa.Com.  
-URL: https://pediaa.com/what-is-the-difference-between-need-and-requirement/
+
+URL: <https://pediaa.com/what-is-the-difference-between-need-and-requirement/>
 
 **[REQUIMENT-2025] Requiment.** (2025). *Functional Requirements vs Business Requirements Explained*.  
-URL: https://www.requiment.com/functional-requirements-vs-business-requirements-explained/
+
+URL: <https://www.requiment.com/functional-requirements-vs-business-requirements-explained/>
 
 **[NETSOLUTIONS-2025] Net Solutions.** (2025). *Business vs Functional Requirements (+Templates)*.  
-URL: https://www.netsolutions.com/insights/business-and-functional-requirements-what-is-the-difference-and-why-should-you-care/
+
+URL: <https://www.netsolutions.com/insights/business-and-functional-requirements-what-is-the-difference-and-why-should-you-care/>
 
 ### 8.3 ESTANDARES RELACIONADOS
 

@@ -1,3 +1,3 @@
 # Política de Seguridad
 
-Reporta vulnerabilidades a security@example.com.
+Reporta vulnerabilidades a <security@example.com>.

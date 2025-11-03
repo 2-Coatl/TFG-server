@@ -3,6 +3,7 @@
 Articula la arquitectura y el diseño detallado alineado con los requisitos.
 
 ## Estructura
+
 - `arquitectura_empresarial/`: visión de negocio, información y aplicaciones.
 - `arquitectura_sistemas/`: SAD, ADR y diagramas.
 - `diseno_detallado/`: modelos específicos de backend, frontend e infraestructura.

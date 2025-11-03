@@ -7,6 +7,7 @@
 | NEED- | | | Alto/Medio/Bajo | | | |
 
 ## Instrucciones
+
 - Mantener sincronizado con `registro_stakeholders.md`.
 - Cada necesidad debe enlazarse con requisitos en `registro_requisitos.md` y tareas en planes de trabajo.
 - Revisar trimestralmente según `procedimiento_revision_documental.md`.

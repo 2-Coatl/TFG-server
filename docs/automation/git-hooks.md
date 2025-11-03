@@ -26,6 +26,9 @@ Este script crea los enlaces simbólicos necesarios dentro de `.git/hooks`.
 ## Personalización
 
 - Ajusta los scripts de `scripts/bash/spec-sync-*.sh` para incluir validaciones
+
   adicionales.
+
 - Si necesitas deshabilitar temporalmente un hook, usa las variables de entorno
+
   documentadas en cada script o exporta `SKIP_HOOKS=1` durante la ejecución.

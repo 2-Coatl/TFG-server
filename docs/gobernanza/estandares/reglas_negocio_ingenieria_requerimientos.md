@@ -1,4 +1,5 @@
 # Reglas de Negocio en Ingeniería de Requerimientos
+
 ## Clasificación, Influencias y Ejemplos Aplicados
 
 ---

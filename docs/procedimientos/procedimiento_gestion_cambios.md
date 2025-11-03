@@ -3,21 +3,26 @@
 **Propósito:** Controlar la recepción, análisis y aprobación de cambios sobre los requisitos, alineado al proceso descrito en `docs/gobernanza/procesos/proceso_gestion_cambios.md`.
 
 ## Alcance
+
 Requerimientos funcionales y no funcionales del producto bajo gobierno del repositorio.
 
 ## Roles
+
 - **Solicitante:** registra la necesidad de cambio y provee contexto.
 - **Analista de requisitos:** evalúa impacto y mantiene la trazabilidad.
 - **Comité de aprobación:** decide la incorporación del cambio.
 
 ## Prerrequisitos
+
 - Plantillas de gobernanza actualizadas (`plantillas/gobernanza/`).
 - Registro maestro de requisitos y trazabilidad disponible (`docs/requisitos/`).
 
 ## Frecuencia
+
 Proceso disparado bajo demanda cuando se envía una nueva solicitud de cambio.
 
 ## Pasos
+
 1. **Registro de solicitud**
    - Completar `plantillas/gobernanza/plantilla_plan_gestion_cambios_requisitos.md`.
    - Añadir la solicitud en `docs/tareas_analisis/gestion_ciclo_vida_requisitos/t_5.4_evaluar_cambios/`.
@@ -36,15 +41,18 @@ Proceso disparado bajo demanda cuando se envía una nueva solicitud de cambio.
    - Levantar tareas de implementación y prueba según la decisión.
 
 ## Entregables
+
 - Solicitud de cambio completada.
 - Registro maestro y trazabilidad actualizados.
 - Acta o nota de aprobación asociada al cambio.
 
 ## Métricas sugeridas
+
 - Tiempo promedio de ciclo desde la solicitud hasta la decisión.
 - Número de cambios aprobados vs. rechazados por periodo.
 
 ## Referencias
+
 - `docs/gobernanza/procesos/proceso_gestion_cambios.md`
 - `docs/requisitos/registro_maestro.md`
 - `docs/requisitos/trazabilidad_general.md`

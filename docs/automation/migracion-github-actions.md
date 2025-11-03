@@ -28,14 +28,18 @@ Antes:
 
 ```bash
 git push origin main
+
 # Esperar los resultados en GitHub Actions
+
 ```
 
 Ahora:
 
 ```bash
 ./scripts/bash/ci-local.sh
+
 # Si todo pasa:
+
 git push origin main
 ```
 

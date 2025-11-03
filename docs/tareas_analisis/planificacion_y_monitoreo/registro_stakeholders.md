@@ -7,5 +7,6 @@
 | STK- | | | | Alta/Media/Baja | | NEED- | Semanal/Mensual/Ad-hoc | |
 
 ## Notas
+
 - Las necesidades deben documentarse en `plantillas/nivel_1_necesidades/plantilla_necesidades_stakeholders.md`.
 - Actualizar tras cada sesión documentada en `plantillas/nivel_3_tareas/plantilla_acta_sesion.md`.

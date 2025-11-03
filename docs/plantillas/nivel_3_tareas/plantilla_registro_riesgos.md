@@ -7,5 +7,6 @@
 | RSK- | | Alta/Media/Baja | Alta/Media/Baja | | Evitar/Mitigar/Transferir/Aceptar | Abierto/Cerrado | |
 
 ## Enlaces
+
 - Asociar con requisitos afectados (`requisitos/registro_maestro.md`).
 - Actualizar métricas en `validacion_evaluacion/metricas_calidad/metricas_valor.md` cuando un riesgo se materialice.

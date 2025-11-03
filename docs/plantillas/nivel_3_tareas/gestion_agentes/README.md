@@ -5,6 +5,7 @@ Incluye instrucciones de delegación, plantillas de contexto y un catálogo de c
 reutilizables (`commands/`).
 
 ## Plantillas destacadas
+
 - `agent-file-template.md`: ficha base para registrar contexto de agentes.
 - `delegation-template.md`: guía para delegar tareas complejas.
 - `plan-template.md` / `plan-template-build.md`: estructuras para planes iterativos.

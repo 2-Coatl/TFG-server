@@ -110,6 +110,7 @@ directorio = "."
 ### Actualización de documentación
 
 Archivos actualizados:
+
 - `README.md`: Ejemplos con `make` en lugar de `codex`
 - `docs/automation/ci-cd.md`: Referencias a Makefile
 - `CHANGELOG.md`: Registro de cambios breaking
@@ -117,14 +118,15 @@ Archivos actualizados:
 ### Tests
 
 La suite de tests migra completamente a BATS:
+
 - `test/test.bats`: Suite principal (ya existe)
 - Eliminar dependencias de pytest del README
 
 ## Referencias
 
-- [GNU Make Manual](https://www.gnu.org/software/make/manual/)
-- [POSIX Make Specification](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html)
-- [Bash Automated Testing System (BATS)](https://github.com/bats-core/bats-core)
+- [GNU Make Manual](<https://www.gnu.org/software/make/manual>/)
+- [POSIX Make Specification](<https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.htm>l)
+- [Bash Automated Testing System (BATS)](<https://github.com/bats-core/bats-cor>e)
 
 ## Historial de revisiones
 

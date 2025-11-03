@@ -3,21 +3,26 @@
 **Propósito:** Estandarizar la recepción y clasificación de nuevos requerimientos o incidencias siguiendo la guía descrita en `docs/triage-framework.md` y los registros de `docs/tareas_analisis/`.
 
 ## Alcance
+
 Solicitudes entrantes (historias, épicas, bugs) que requieren evaluación inicial antes de planificarse.
 
 ## Roles
+
 - **Facilitador/a de triage:** coordina la sesión y documenta acuerdos.
 - **Representante de producto:** aporta contexto de negocio y prioriza.
 - **Representante técnico:** estima impacto en arquitectura y pruebas.
 
 ## Prerrequisitos
+
 - Backlog actualizado en los tableros correspondientes (`docs/tableros/`).
 - Registros de stakeholders y métricas vigentes para tomar decisiones informadas.
 
 ## Frecuencia
+
 Sesiones semanales o cuando exista un volumen significativo de solicitudes pendientes.
 
 ## Pasos
+
 1. **Preparación de la sesión**
    - Recolectar insumos desde `docs/necesidades_negocio/` y `docs/requisitos/` para entender dependencias.
    - Identificar ítems nuevos y agruparlos por tipo (feature, bug, deuda técnica).
@@ -35,14 +40,17 @@ Sesiones semanales o cuando exista un volumen significativo de solicitudes pendi
    - Generar acciones en tableros o actas según corresponda (`docs/plantillas/`).
 
 ## Entregables
+
 - Registro actualizado de cada ítem triageado con su estado y prioridad.
 - Lista de acciones o tareas derivadas para completar información faltante.
 
 ## Métricas sugeridas
+
 - Porcentaje de ítems aceptados vs. rechazados en cada sesión.
 - Tiempo promedio desde la recepción hasta la clasificación final.
 
 ## Referencias
+
 - `docs/triage-framework.md`
 - `docs/tareas_analisis/`
 - `docs/requisitos/trazabilidad_general.md`

@@ -3,6 +3,7 @@
 Bienvenido a la documentación del proyecto TFG Server.
 
 ## Estructura basada en BABOK + PMBOK + ISO/IEC/IEEE 29148
+
 - `necesidades_negocio/`: BRS y business cases.
 - `requisitos/`: StRS, SyRS, SRS y trazabilidad.
 - `tareas_analisis/`: 30 tareas BABOK mapeadas a procesos ISO.

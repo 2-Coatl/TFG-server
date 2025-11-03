@@ -3,6 +3,7 @@
 Centraliza estándares de código, TDD y lineamientos de revisión.
 
 ## Contenido
+
 - `estandares_codigo.md`: pautas de estilo y convenciones.
 - `revision_codigo.md`: flujo de revisiones y checklists.
 - `tdd_guidelines.md`: práctica de TDD aplicada.

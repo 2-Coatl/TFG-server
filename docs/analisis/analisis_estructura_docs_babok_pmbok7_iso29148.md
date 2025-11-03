@@ -1,4 +1,4 @@
-## RESUMEN EJECUTIVO
+# RESUMEN EJECUTIVO
 
 Este documento presenta la **propuesta final validada** para reorganizar `docs/` integrando los 3 marcos de referencia internacionales más importantes:
 
@@ -143,10 +143,12 @@ Cada conjunto **SHALL possess**:
 └─────────────────────────────────────────────────────────────────────┘
 
 ACTIVIDADES TRANSVERSALES:
+
 - ISO 29148: Requirements Management (6.6)
 - BABOK: Requirements Lifecycle Management (KA 5)
 - PMBOK: Configuration Management, Information Management
 - CARPETA: gobernanza/ + requisitos/trazabilidad_general.md
+
 ```
 
 ---
@@ -572,6 +574,7 @@ La estructura propuesta permite alcanzar **FULL CONFORMANCE** según ISO/IEC/IEE
 | ✅ Conformance to content in Clause 9 & Annex A | SÍ | Plantillas siguen estructura normativa de Clause 9 |
 
 **Certificación:**
+
 > "Esta estructura documental cumple con ISO/IEC/IEEE 29148:2018 - Full Conformance"
 
 ### 4.2 Mapeo de Conformance por Clause
@@ -618,6 +621,7 @@ La estructura propuesta permite alcanzar **FULL CONFORMANCE** según ISO/IEC/IEE
 ### 5.2 Casos de Uso de la Estructura Integrada
 
 **CASO 1: Auditoría de Cumplimiento**
+
 ```
 Auditor: "¿Cumplen con ISO 29148 para requisitos?"
 Equipo: "Sí, Full Conformance certificado en gobernanza/estandares/taxonomia_babok_pmbok_iso.md"
@@ -627,6 +631,7 @@ Equipo: "requisitos/trazabilidad_general.md - trazabilidad bidireccional Need→
 ```
 
 **CASO 2: Onboarding de Business Analyst Junior**
+
 ```
 BA Junior: "¿Dónde documento las sesiones de elicitación?"
 BA Senior: "Sigue BABOK KA 4. Carpeta: tareas_analisis/elicitacion_colaboracion/sesiones/"
@@ -636,6 +641,7 @@ BA Senior: "plantillas/nivel_3_tareas/plantilla_acta_sesion.md - cumple ISO 6.3.
 ```
 
 **CASO 3: Project Manager Planning**
+
 ```
 PM: "¿Qué artefactos debo planificar según PMBOK 7?"
 Respuesta: Revisa plantillas/ organizadas por nivel (necesidades/requisitos/tareas/diseño/impl/validación)
@@ -645,6 +651,7 @@ Respuesta: ISO 29148 Clause 7: BRS, StRS, SyRS, SRS son SHALL. PMBOK 7: aplica p
 ```
 
 **CASO 4: Búsqueda Rápida de Requisito**
+
 ```
 Dev: "¿Dónde está el requisito de tiempo de respuesta?"
 → requisitos/requisitos_solucion/no_funcionales/rendimiento/rnf_001_tiempo_respuesta.md
@@ -655,6 +662,7 @@ Dev: "¿Dónde está el requisito de tiempo de respuesta?"
 ```
 
 **CASO 5: Cambio de Requisito**
+
 ```
 Stakeholder: "Necesito cambiar el requisito RS-010"
 → Proceso: gobernanza/procesos/proceso_gestion_cambios.md [ISO 6.6.2.2.3]
@@ -763,6 +771,7 @@ Stakeholder: "Necesito cambiar el requisito RS-010"
 **ÚNICA EN EL MERCADO:**
 
 La mayoría de organizaciones implementan:
+
 - ❌ Solo BABOK → Falta rigor normativo
 - ❌ Solo PMBOK → Falta profundidad en requisitos
 - ❌ Solo ISO 29148 → Falta guía práctica de implementación

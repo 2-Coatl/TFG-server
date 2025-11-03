@@ -7,6 +7,7 @@
 | REQ- | | | | | Propuesto/Validado/Aprobado | | | |
 
 ## Guía de uso
+
 - Cada requisito debe vincularse con la necesidad correspondiente (`tareas_analisis/planificacion_y_monitoreo/registro_stakeholders.md`, `requisitos/registro_maestro.md`).
 - Registrar resultados de verificación/validación en el campo **Trazas** junto con identificadores de pruebas automatizadas.
 - Actualizar el estado siguiendo el procedimiento de cambios (`plantillas/gobernanza/plantilla_plan_gestion_cambios_requisitos.md`).

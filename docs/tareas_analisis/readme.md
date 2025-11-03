@@ -3,6 +3,7 @@
 Organiza las 30 tareas de BABOK en 6 áreas de conocimiento, mapeadas a los procesos ISO 29148.
 
 ## Directorios principales
+
 - `planificacion_y_monitoreo/`
 - `elicitacion_colaboracion/`
 - `gestion_ciclo_vida_requisitos/`
