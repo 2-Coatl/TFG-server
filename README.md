@@ -52,9 +52,48 @@ La salida utiliza prefijos como `[INFO]`, `[SUCCESS]` y `[ERROR]` siguiendo la g
 
 ## Desarrollo
 
-1. Trabaja siguiendo TDD: escribe primero las pruebas en `test/` y ejecútalas con `make test`
+1. Trabaja siguiendo TDD: escribe primero las pruebas en `test/` y ejecútalas con
+   `make test`
 2. Valida tu código antes de commit: `make lint`
-3. Mantén sincronizada la documentación en PostScript (`docs/estandares-shell-postscript.ps`)
+3. Mantén actualizada la documentación del proyecto
+
+### Guías y Procedimientos
+
+Para desarrolladores nuevos y existentes, consulta los procedimientos operativos
+completos:
+
+**📚 [Índice Maestro de Procedimientos](docs/procedimientos/README.md)**
+
+#### Procedimientos Esenciales
+
+- **[Onboarding](docs/procedimientos/procedimiento_onboarding.md)** - Guía
+  completa para nuevos desarrolladores
+- **[Desarrollo Local](docs/procedimientos/procedimiento_desarrollo_local.md)** -
+  Workflow diario de desarrollo
+- **[CI/CD](docs/procedimientos/procedimiento_ci_cd.md)** - Pipeline de
+  integración continua
+- **[Creación de Features](docs/procedimientos/procedimiento_creacion_features.md)** -
+  Proceso completo para nuevas funcionalidades
+- **[Testing con BATS](docs/procedimientos/testing-bats.md)** - Crear y ejecutar
+  tests
+
+#### Procedimientos de Calidad
+
+- **[Linting](docs/procedimientos/procedimiento_linting.md)** - Validación de
+  código estático
+- **[Generación de Documentación](docs/procedimientos/procedimiento_generacion_docs.md)** -
+  Crear y publicar documentación
+- **[Git Hooks](docs/procedimientos/procedimiento_git_hooks.md)** - Instalación
+  y gestión de hooks
+
+#### Procedimientos de Soporte
+
+- **[Verificación de Dependencias](docs/procedimientos/procedimiento_verificacion_dependencias.md)** -
+  Validar herramientas instaladas
+- **[Limpieza](docs/procedimientos/procedimiento_limpieza.md)** - Mantener
+  repositorio limpio
+- **[Release](docs/procedimientos/procedimiento_release_local.md)** - Proceso
+  de liberación
 
 ## 🚀 Automatización
 
