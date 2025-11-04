@@ -1,4 +1,4 @@
-.PHONY: help test lint lint-markdown lint-shell docs ci release clean install-hooks version
+.PHONY: help test test-shunit2 test-all lint lint-markdown lint-shell docs ci release clean install-hooks version
 
 # Variables
 SHELL := /bin/bash
@@ -36,11 +36,31 @@ test:
 	@echo -e "$(COLOR_INFO)[test] Ejecutando suite de tests BATS...$(COLOR_RESET)"
 	@if command -v bats >/dev/null 2>&1; then \
 		bats $(TEST_DIR)/test.bats; \
-		echo -e "$(COLOR_SUCCESS)[test] Tests completados$(COLOR_RESET)"; \
+		echo -e "$(COLOR_SUCCESS)[test] Tests BATS completados$(COLOR_RESET)"; \
 	else \
 		echo -e "$(COLOR_ERROR)[test] ERROR: bats no está instalado$(COLOR_RESET)"; \
 		exit 1; \
 	fi
+
+## test-shunit2: Ejecuta la suite de tests con shUnit2
+test-shunit2:
+	@echo -e "$(COLOR_INFO)[test-shunit2] Ejecutando suite de tests shUnit2...$(COLOR_RESET)"
+	@if [ -f $(TEST_DIR)/lib/shunit2 ]; then \
+		$(TEST_DIR)/mcp_shunit2_test.sh; \
+		echo -e "$(COLOR_SUCCESS)[test-shunit2] Tests shUnit2 completados$(COLOR_RESET)"; \
+	else \
+		echo -e "$(COLOR_ERROR)[test-shunit2] ERROR: shUnit2 no encontrado en test/lib/$(COLOR_RESET)"; \
+		exit 1; \
+	fi
+
+## test-all: Ejecuta todas las suites de tests (BATS + shUnit2)
+test-all:
+	@echo -e "$(COLOR_INFO)[test-all] Ejecutando todas las suites de tests...$(COLOR_RESET)"
+	@$(MAKE) test || true
+	@echo ""
+	@$(MAKE) test-shunit2 || true
+	@echo ""
+	@echo -e "$(COLOR_SUCCESS)[test-all] Todas las suites completadas$(COLOR_RESET)"
 
 ## lint: Ejecuta todos los linters (markdown + shell)
 lint: lint-markdown lint-shell
