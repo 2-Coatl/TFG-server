@@ -13,7 +13,13 @@ Herramienta monolítica para ejecutar tareas de soporte al desarrollo, implement
 - **bats-core**: Suite de pruebas automatizadas
 - **shellcheck**: Análisis estático de scripts shell
 - **markdownlint-cli2**: Validación de archivos Markdown
-- **docfx**: Generación de documentación
+- **mkdocs**: Generación de documentación
+  - mkdocs-material: Theme Material Design
+  - mkdocs-git-revision-date-localized-plugin: Fechas de última modificación
+
+```bash
+pip install -r requirements-docs.txt
+```
 
 Para verificar dependencias instaladas:
 
@@ -55,6 +61,14 @@ La salida utiliza prefijos como `[INFO]`, `[SUCCESS]` y `[ERROR]` siguiendo la g
 1. Trabaja siguiendo TDD: escribe primero las pruebas en `test/` y ejecútalas con `make test`
 2. Valida tu código antes de commit: `make lint`
 3. Mantén sincronizada la documentación en PostScript (`docs/estandares-shell-postscript.ps`)
+4. **⚠️ IMPORTANTE**: Siempre ejecuta `make ci` antes de commit (ver [Workflow de Claude](.devcontainer/CLAUDE_WORKFLOW.md))
+
+### Workflow para Claude Code
+
+Si estás usando Claude Code o asistentes de IA, sigue el checklist obligatorio en:
+- [.devcontainer/CLAUDE_WORKFLOW.md](.devcontainer/CLAUDE_WORKFLOW.md)
+
+Este checklist garantiza que se ejecuten las validaciones necesarias según el tipo de cambio (documentación, código, infraestructura, tests).
 
 ## 🚀 Automatización
 
@@ -80,12 +94,28 @@ Los git hooks instalados con `make install-hooks` (o `./scripts/bash/spec-hooks-
 
 Consulta la documentación completa en `docs/automation/ci-cd.md`.
 
+## 🤖 Model Context Protocol (MCP)
+
+El proyecto incluye un **servidor MCP** implementado completamente en Shell para permitir que asistentes de IA (Claude Code, Cursor, etc.) interactúen inteligentemente con el repositorio.
+
+**Herramientas MCP disponibles**:
+- `analyze_requirements`: Analiza requisitos contra ISO 29148/BABOK/PMBOK
+- `run_ci_pipeline`: Ejecuta pipeline CI completo
+- `scan_shell_quality`: Analiza calidad de scripts Shell
+- `validate_project_structure`: Valida estructura del proyecto
+- `list_governance_docs`: Lista documentos de gobernanza
+
+El servidor se configura automáticamente al abrir el proyecto en devcontainer. Ver documentación completa en:
+- [Servidor MCP - Guía de Implementación](docs/implementacion/infrastructure/mcp-server.md)
+- [ADR 0003: Servidor MCP en Shell](docs/diseno_solucion/arquitectura_sistemas/adr/0003-servidor-mcp-shell.md)
+
 ## Documentación de decisiones
 
-Las decisiones arquitectónicas se registran en `docs/adr`:
+Las decisiones arquitectónicas se registran en `docs/diseno_solucion/arquitectura_sistemas/adr/`:
 
-- [ADR 0002: Migración a Makefile](docs/adr/0002-migracion-makefile.md) - Sistema actual de automatización
-- [ADR 0001: Codex CLI](docs/adr/0001-ejecucion-codex.md) - **DEPRECADO** (reemplazado por Makefile)
+- [ADR 0003: Servidor MCP en Shell](docs/diseno_solucion/arquitectura_sistemas/adr/0003-servidor-mcp-shell.md) - Integración con asistentes de IA
+- [ADR 0002: Migración a Makefile](docs/diseno_solucion/arquitectura_sistemas/adr/0002-migracion-makefile.md) - Sistema actual de automatización
+- [ADR 0001: Codex CLI](docs/diseno_solucion/arquitectura_sistemas/adr/0001-ejecucion-codex.md) - **DEPRECADO** (reemplazado por Makefile)
 
 Para ampliar la comprensión sobre la estructura documental y su alineación con marcos de análisis de negocio y gestión de proyectos, revisa los análisis en `docs/analisis/`:
 

@@ -26,7 +26,7 @@
 
 ## <a id="build-docs"></a> build-docs.sh
 
-- **Propósito:** Generar documentación con DocFX y servirla localmente.
+- **Propósito:** Generar documentación con MkDocs y servirla localmente.
 - **Uso:**
 
   ```bash

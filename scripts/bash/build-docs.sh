@@ -5,20 +5,21 @@
 # REEMPLAZA: Workflow docs.yml de GitHub Actions
 #
 # PROPÓSITO:
-#   Construir la documentación con DocFX y exponerla localmente si se desea.
+#   Construir la documentación con MkDocs y exponerla localmente si se desea.
 #
 # USO:
 #   ./scripts/bash/build-docs.sh [--serve]
 #
 # OPCIONES:
-#   --serve   Levanta un servidor HTTP simple en docs/_site (puerto 8080 por defecto)
+#   --serve   Levanta servidor MkDocs con live reload (puerto 8000 por defecto)
 #
 # VARIABLES DE ENTORNO:
-#   DOCFX_SERVE_PORT=9000   Puerto a utilizar con --serve (default 8080)
+#   MKDOCS_SERVE_PORT=9000   Puerto a utilizar con --serve (default 8000)
 #
 # REQUISITOS:
-#   - docfx
-#   - Python 3.11+ (solo para --serve)
+#   - mkdocs
+#   - mkdocs-material
+#   - mkdocs-git-revision-date-localized-plugin
 ################################################################################
 
 set -euo pipefail
@@ -30,8 +31,6 @@ if [[ ${BASH_VERSINFO[0]:-0} -lt 4 ]]; then
 fi
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-DOCS_DIR="$ROOT_DIR/docs"
-SITE_DIR="$DOCS_DIR/_site"
 SERVE=${1:-}
 
 log() {
@@ -46,24 +45,21 @@ require_command() {
 }
 
 build_site() {
-  require_command docfx
+  require_command mkdocs
 
-  log "Generando documentación con DocFX"
-  docfx build "$DOCS_DIR/docfx.json"
+  log "Generando documentación con MkDocs"
+  cd "$ROOT_DIR" || { log "ERROR: No se pudo cambiar a $ROOT_DIR"; exit 1; }
+  mkdocs build
 }
 
 serve_site() {
-  local port="${DOCFX_SERVE_PORT:-8080}"
+  local port="${MKDOCS_SERVE_PORT:-8000}"
 
-  if [[ ! -d "$SITE_DIR" ]]; then
-    log "ERROR: la carpeta $SITE_DIR no existe. Ejecuta primero la generación."
-    exit 1
-  fi
-
-  require_command python3
+  require_command mkdocs
 
   log "Sirviendo documentación en http://localhost:${port}"
-  (cd "$SITE_DIR" || { log "ERROR: No se pudo cambiar a $SITE_DIR"; exit 1; }; python3 -m http.server "$port")
+  cd "$ROOT_DIR" || { log "ERROR: No se pudo cambiar a $ROOT_DIR"; exit 1; }
+  mkdocs serve --dev-addr "localhost:${port}"
 }
 
 build_site

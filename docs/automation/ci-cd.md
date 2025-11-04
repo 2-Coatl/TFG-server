@@ -80,8 +80,8 @@ make docs-serve
 ./scripts/bash/build-docs.sh --serve
 ```
 
-La generación utiliza DocFX (`docfx build docs/docfx.json`). Con `--serve` se
-levanta un servidor simple en `http://localhost:8080`.
+La generación utiliza MkDocs (`mkdocs build --strict`). Con `--serve` se
+levanta un servidor con live reload en `http://localhost:8000`.
 
 ## 🔧 Scripts y Comandos Disponibles
 
@@ -92,7 +92,7 @@ levanta un servidor simple en `http://localhost:8080`.
 | `make help` | Listar todas las tareas disponibles |
 | `make test` | Ejecutar suite de tests con BATS |
 | `make lint` | Linting de Markdown y Shell |
-| `make docs` | Generar documentación con DocFX |
+| `make docs` | Generar documentación con MkDocs |
 | `make docs-serve` | Generar y servir documentación localmente |
 | `make ci` | Pipeline completo (lint + tests + docs) |
 | `make release` | Proceso de release |

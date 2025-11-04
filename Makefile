@@ -1,4 +1,4 @@
-.PHONY: help test lint lint-markdown lint-shell docs ci release clean install-hooks version
+.PHONY: help test test-shunit2 test-all lint lint-markdown lint-shell docs ci release clean install-hooks version
 
 # Variables
 SHELL := /bin/bash
@@ -36,11 +36,31 @@ test:
 	@echo -e "$(COLOR_INFO)[test] Ejecutando suite de tests BATS...$(COLOR_RESET)"
 	@if command -v bats >/dev/null 2>&1; then \
 		bats $(TEST_DIR)/test.bats; \
-		echo -e "$(COLOR_SUCCESS)[test] Tests completados$(COLOR_RESET)"; \
+		echo -e "$(COLOR_SUCCESS)[test] Tests BATS completados$(COLOR_RESET)"; \
 	else \
 		echo -e "$(COLOR_ERROR)[test] ERROR: bats no está instalado$(COLOR_RESET)"; \
 		exit 1; \
 	fi
+
+## test-shunit2: Ejecuta la suite de tests con shUnit2
+test-shunit2:
+	@echo -e "$(COLOR_INFO)[test-shunit2] Ejecutando suite de tests shUnit2...$(COLOR_RESET)"
+	@if [ -f $(TEST_DIR)/lib/shunit2 ]; then \
+		$(TEST_DIR)/mcp_shunit2_test.sh; \
+		echo -e "$(COLOR_SUCCESS)[test-shunit2] Tests shUnit2 completados$(COLOR_RESET)"; \
+	else \
+		echo -e "$(COLOR_ERROR)[test-shunit2] ERROR: shUnit2 no encontrado en test/lib/$(COLOR_RESET)"; \
+		exit 1; \
+	fi
+
+## test-all: Ejecuta todas las suites de tests (BATS + shUnit2)
+test-all:
+	@echo -e "$(COLOR_INFO)[test-all] Ejecutando todas las suites de tests...$(COLOR_RESET)"
+	@$(MAKE) test || true
+	@echo ""
+	@$(MAKE) test-shunit2 || true
+	@echo ""
+	@echo -e "$(COLOR_SUCCESS)[test-all] Todas las suites completadas$(COLOR_RESET)"
 
 ## lint: Ejecuta todos los linters (markdown + shell)
 lint: lint-markdown lint-shell
@@ -73,11 +93,11 @@ lint-shell:
 		exit 1; \
 	fi
 
-## docs: Genera la documentación con DocFX
+## docs: Genera la documentación con MkDocs
 docs:
 	@echo -e "$(COLOR_INFO)[docs] Generando documentación...$(COLOR_RESET)"
 	@$(SCRIPTS_DIR)/build-docs.sh
-	@echo -e "$(COLOR_SUCCESS)[docs] Documentación generada en docs/_site$(COLOR_RESET)"
+	@echo -e "$(COLOR_SUCCESS)[docs] Documentación generada en site/$(COLOR_RESET)"
 
 ## docs-serve: Genera y sirve la documentación localmente
 docs-serve:
@@ -105,7 +125,7 @@ install-hooks:
 ## clean: Limpia archivos generados y temporales
 clean:
 	@echo -e "$(COLOR_INFO)[clean] Limpiando archivos generados...$(COLOR_RESET)"
-	@rm -rf $(DOCS_DIR)/_site
+	@rm -rf $(ROOT_DIR)/site
 	@find . -type f -name "*.pyc" -delete
 	@find . -type d -name "__pycache__" -delete
 	@find . -type d -name ".pytest_cache" -delete
@@ -115,7 +135,7 @@ clean:
 check-deps:
 	@echo -e "$(COLOR_INFO)[check-deps] Verificando dependencias...$(COLOR_RESET)"
 	@missing=0; \
-	for cmd in bats shellcheck markdownlint-cli2 docfx; do \
+	for cmd in bats shellcheck markdownlint-cli2 mkdocs; do \
 		if ! command -v $$cmd >/dev/null 2>&1; then \
 			echo -e "$(COLOR_ERROR)  ✗ $$cmd no encontrado$(COLOR_RESET)"; \
 			missing=$$((missing + 1)); \

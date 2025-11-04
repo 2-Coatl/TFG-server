@@ -31,3 +31,27 @@ setup() {
     [[ -f "${project_root}/docs/automation/migracion-github-actions.md" ]]
     [[ -f "${project_root}/docs/implementacion/backend/guias_desarrollo/spec-driven-development.md" ]]
 }
+
+@test "estructura MCP implementada correctamente" {
+    project_root="${DIR}/.."
+
+    # Servidor y librería MCP
+    [[ -f "${project_root}/.devcontainer/mcp/server.sh" ]]
+    [[ -x "${project_root}/.devcontainer/mcp/server.sh" ]]
+    [[ -f "${project_root}/.devcontainer/mcp/lib/mcp-common.sh" ]]
+
+    # Herramientas MCP
+    [[ -f "${project_root}/.devcontainer/mcp/tools/analyze-requirements.sh" ]]
+    [[ -f "${project_root}/.devcontainer/mcp/tools/run-ci.sh" ]]
+    [[ -f "${project_root}/.devcontainer/mcp/tools/scan-shell.sh" ]]
+    [[ -f "${project_root}/.devcontainer/mcp/tools/list-governance.sh" ]]
+    [[ -f "${project_root}/.devcontainer/mcp/tools/validate-structure.sh" ]]
+
+    # Documentación MCP
+    [[ -f "${project_root}/.devcontainer/mcp/README.md" ]]
+    [[ -f "${project_root}/docs/diseno_solucion/arquitectura_sistemas/adr/0003-servidor-mcp-shell.md" ]]
+    [[ -f "${project_root}/docs/implementacion/infrastructure/mcp-server.md" ]]
+
+    # Configuración devcontainer
+    grep -q "mcp.servers" "${project_root}/.devcontainer/devcontainer.json"
+}

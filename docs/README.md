@@ -1,6 +1,6 @@
 # Documentation
 
-Esta carpeta contiene la documentación generada con DocFX.
+Esta carpeta contiene la documentación generada con MkDocs.
 
 ## Estructura normativa
 La estructura se organiza según la propuesta integrada de `docs/analisis/analisis_estructura_docs_babok_pmbok7_iso29148.md`, habilitando:
