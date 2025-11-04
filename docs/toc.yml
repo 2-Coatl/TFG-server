@@ -68,6 +68,13 @@
 - name: Gobernanza de Requisitos
   href: gobernanza/readme.md
   items:
+    - name: Estándares
+      href: gobernanza/estandares/README.md
+      items:
+        - name: Directrices Claude Code
+          href: gobernanza/estandares/claude-code-guidelines.md
+        - name: Reglas de Negocio
+          href: gobernanza/estandares/reglas_negocio_ingenieria_requerimientos.md
     - name: Planificación de Releases
       href: gobernanza/planificacion/README.md
     - name: Roadmap trimestral
