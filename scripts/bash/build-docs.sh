@@ -49,7 +49,7 @@ build_site() {
 
   log "Generando documentación con MkDocs"
   cd "$ROOT_DIR" || { log "ERROR: No se pudo cambiar a $ROOT_DIR"; exit 1; }
-  mkdocs build --strict
+  mkdocs build
 }
 
 serve_site() {

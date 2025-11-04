@@ -26,7 +26,10 @@ env/
 *~
 .DS_Store
 
-# Documentation generated files
+# Documentation generated files (MkDocs)
+site/
+
+# Legacy documentation (DocFX - deprecated)
 docs/_site/
 docs/api/
 

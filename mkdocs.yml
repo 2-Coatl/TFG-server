@@ -4,7 +4,7 @@ site_author: Equipo TFG
 repo_url: https://github.com/NestorMonroy/TFG-server
 repo_name: NestorMonroy/TFG-server
 docs_dir: docs
-site_dir: docs/_site
+site_dir: site
 
 theme:
   name: material

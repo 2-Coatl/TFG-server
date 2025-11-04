@@ -93,11 +93,11 @@ lint-shell:
 		exit 1; \
 	fi
 
-## docs: Genera la documentación con DocFX
+## docs: Genera la documentación con MkDocs
 docs:
 	@echo -e "$(COLOR_INFO)[docs] Generando documentación...$(COLOR_RESET)"
 	@$(SCRIPTS_DIR)/build-docs.sh
-	@echo -e "$(COLOR_SUCCESS)[docs] Documentación generada en docs/_site$(COLOR_RESET)"
+	@echo -e "$(COLOR_SUCCESS)[docs] Documentación generada en site/$(COLOR_RESET)"
 
 ## docs-serve: Genera y sirve la documentación localmente
 docs-serve:
@@ -125,7 +125,7 @@ install-hooks:
 ## clean: Limpia archivos generados y temporales
 clean:
 	@echo -e "$(COLOR_INFO)[clean] Limpiando archivos generados...$(COLOR_RESET)"
-	@rm -rf $(DOCS_DIR)/_site
+	@rm -rf $(ROOT_DIR)/site
 	@find . -type f -name "*.pyc" -delete
 	@find . -type d -name "__pycache__" -delete
 	@find . -type d -name ".pytest_cache" -delete
