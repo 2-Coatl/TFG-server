@@ -55,6 +55,14 @@ La salida utiliza prefijos como `[INFO]`, `[SUCCESS]` y `[ERROR]` siguiendo la g
 1. Trabaja siguiendo TDD: escribe primero las pruebas en `test/` y ejecútalas con `make test`
 2. Valida tu código antes de commit: `make lint`
 3. Mantén sincronizada la documentación en PostScript (`docs/estandares-shell-postscript.ps`)
+4. **⚠️ IMPORTANTE**: Siempre ejecuta `make ci` antes de commit (ver [Workflow de Claude](.devcontainer/CLAUDE_WORKFLOW.md))
+
+### Workflow para Claude Code
+
+Si estás usando Claude Code o asistentes de IA, sigue el checklist obligatorio en:
+- [.devcontainer/CLAUDE_WORKFLOW.md](.devcontainer/CLAUDE_WORKFLOW.md)
+
+Este checklist garantiza que se ejecuten las validaciones necesarias según el tipo de cambio (documentación, código, infraestructura, tests).
 
 ## 🚀 Automatización
 
