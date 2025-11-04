@@ -63,6 +63,40 @@ La salida utiliza prefijos como `[INFO]`, `[SUCCESS]` y `[ERROR]` siguiendo la g
 3. Mantén sincronizada la documentación en PostScript (`docs/estandares-shell-postscript.ps`)
 4. **⚠️ IMPORTANTE**: Siempre ejecuta `make ci` antes de commit (ver [Workflow de Claude](.devcontainer/CLAUDE_WORKFLOW.md))
 
+### Estándares de Shell Scripting
+
+Todos los scripts del proyecto deben cumplir con la [Shell Scripting Guide v2.1](docs/gobernanza/estandares/shell-scripting-guide.md).
+
+**Validación de scripts**:
+
+```bash
+# Validar todos los scripts
+./scripts/bash/validate-shell-scripts.sh
+
+# Validar con modo estricto
+./scripts/bash/validate-shell-scripts.sh --strict
+
+# Validar y auto-corregir permisos
+./scripts/bash/validate-shell-scripts.sh --fix
+```
+
+**Instalar hooks de validación**:
+
+```bash
+# Instalar hooks de pre-commit
+./scripts/bash/install-git-hooks.sh
+
+# Forzar reinstalación
+./scripts/bash/install-git-hooks.sh --force
+```
+
+Los hooks de pre-commit validarán automáticamente todos los scripts modificados antes de cada commit.
+
+**Recursos**:
+- Guía completa: [Shell Scripting Guide](docs/gobernanza/estandares/shell-scripting-guide.md)
+- ADR: [ADR 0005: Estándar de Shell Scripting](docs/diseno_solucion/arquitectura_sistemas/adr/0005-estandar-shell-scripting.md)
+- Configuración ShellCheck: [.shellcheckrc](.shellcheckrc)
+
 ### Workflow para Claude Code
 
 Si estás usando Claude Code o asistentes de IA, sigue el checklist obligatorio en:
@@ -113,6 +147,8 @@ El servidor se configura automáticamente al abrir el proyecto en devcontainer. 
 
 Las decisiones arquitectónicas se registran en `docs/diseno_solucion/arquitectura_sistemas/adr/`:
 
+- [ADR 0005: Estándar de Shell Scripting](docs/diseno_solucion/arquitectura_sistemas/adr/0005-estandar-shell-scripting.md) - Adopción de Shell Scripting Guide v2.1
+- [ADR 0004: Migración a MkDocs](docs/diseno_solucion/arquitectura_sistemas/adr/0004-migracion-mkdocs.md) - Generación de documentación con MkDocs
 - [ADR 0003: Servidor MCP en Shell](docs/diseno_solucion/arquitectura_sistemas/adr/0003-servidor-mcp-shell.md) - Integración con asistentes de IA
 - [ADR 0002: Migración a Makefile](docs/diseno_solucion/arquitectura_sistemas/adr/0002-migracion-makefile.md) - Sistema actual de automatización
 - [ADR 0001: Codex CLI](docs/diseno_solucion/arquitectura_sistemas/adr/0001-ejecucion-codex.md) - **DEPRECADO** (reemplazado por Makefile)

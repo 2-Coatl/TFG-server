@@ -1,0 +1,146 @@
+# ShellCheck Configuration
+# Version: 1.0.0
+# Last Updated: 2025-11-04
+#
+# This configuration enforces Shell Scripting Guide v2.1 standards.
+# See: docs/gobernanza/estandares/shell-scripting-guide.md
+# ADR: docs/diseno_solucion/arquitectura_sistemas/adr/0005-estandar-shell-scripting.md
+
+# -----------------------------------------------------------------------------
+# ENABLED CHECKS
+# -----------------------------------------------------------------------------
+
+# Enable all checks by default
+# We explicitly disable only what's necessary (see below)
+
+# -----------------------------------------------------------------------------
+# DISABLED CHECKS (with justification)
+# -----------------------------------------------------------------------------
+
+# SC1090: Can't follow non-constant source
+# Justification: Dynamic sourcing of config files is common and necessary
+# Example: . "$CONFIG_DIR/$ENV.conf"
+disable=SC1090
+
+# SC1091: Not following sources
+# Justification: Source files may not exist at shellcheck time (generated files)
+# Example: . /etc/profile.d/app-env.sh
+disable=SC1091
+
+# -----------------------------------------------------------------------------
+# SHELL SELECTION
+# -----------------------------------------------------------------------------
+
+# Default shell dialect (can be overridden by shebang)
+# Options: sh, bash, dash, ksh
+# Default: auto-detect from shebang
+# shell=bash
+
+# -----------------------------------------------------------------------------
+# SEVERITY LEVELS
+# -----------------------------------------------------------------------------
+
+# Set minimum severity level
+# Options: error, warning, info, style
+# Default: style (show all)
+# severity=warning
+
+# -----------------------------------------------------------------------------
+# IMPORTANT CHECKS (ALWAYS ENABLED)
+# -----------------------------------------------------------------------------
+
+# SC2086: Double quote to prevent globbing and word splitting
+# This is CRITICAL for security and correctness
+# Example: Wrong: cat $file  Right: cat "$file"
+
+# SC2046: Quote command substitution to prevent word splitting
+# Example: Wrong: for x in $(cat file)  Right: while IFS= read -r x; do
+
+# SC2006: Use $(...) instead of legacy `...`
+# Modern syntax is more readable and nestable
+# Example: Wrong: `date`  Right: $(date)
+
+# SC2155: Declare and assign separately to avoid masking return values
+# Example: Wrong: local var=$(cmd)  Right: local var; var=$(cmd)
+
+# SC2164: Use 'cd ... || exit' to handle errors
+# Critical for preventing operations in wrong directory
+# Example: Wrong: cd dir  Right: cd dir || exit
+
+# SC2181: Check exit code directly with e.g. 'if mycmd;', not indirectly with $?
+# More idiomatic and clearer intent
+# Example: Wrong: mycmd; if [ $? -eq 0 ]  Right: if mycmd; then
+
+# SC2103: Use a ( subshell ) to avoid having to cd back
+# Prevents side effects on caller's working directory
+# Example: ( cd dir && cmd ) instead of cd dir; cmd; cd -
+
+# SC2154: Variable is referenced but not assigned
+# Catches typos and undefined variables
+# Exceptions: Variables from external sources (mark with: # shellcheck disable=SC2154)
+
+# SC2001: Prefer ${var//search/replace} over sed for simple replacements
+# More efficient and doesn't spawn subshell
+# Example: Wrong: echo "$var" | sed 's/old/new/'  Right: echo "${var//old/new}"
+
+# -----------------------------------------------------------------------------
+# EXTERNAL SOURCES
+# -----------------------------------------------------------------------------
+
+# Directories to search for sourced files
+# Uncomment and customize if needed:
+# source-path=SCRIPTDIR
+# source-path=infrastructure/utils
+
+# -----------------------------------------------------------------------------
+# OUTPUT FORMAT
+# -----------------------------------------------------------------------------
+
+# Output format
+# Options: checkstyle, diff, gcc, json, json1, quiet, tty
+# Default: tty (colored output for terminal)
+# format=gcc
+
+# -----------------------------------------------------------------------------
+# NOTES
+# -----------------------------------------------------------------------------
+
+# To disable a check for a specific line:
+#   # shellcheck disable=SC2086
+#   cat $unquoted_var
+
+# To disable a check for entire file (add at top):
+#   # shellcheck disable=SC2086
+
+# To disable multiple checks:
+#   # shellcheck disable=SC2086,SC2046
+
+# To check what version of shellcheck you have:
+#   shellcheck --version
+
+# To list all available checks:
+#   shellcheck -W
+
+# -----------------------------------------------------------------------------
+# RECOMMENDED USAGE
+# -----------------------------------------------------------------------------
+
+# Run shellcheck on all scripts:
+#   find . -name "*.sh" -type f -exec shellcheck {} +
+
+# Run with strict warnings:
+#   shellcheck --severity=warning script.sh
+
+# Run with our validation script:
+#   ./scripts/bash/validate-shell-scripts.sh
+
+# In CI/CD:
+#   shellcheck --format=gcc script.sh  # For better CI output
+
+# -----------------------------------------------------------------------------
+# REFERENCES
+# -----------------------------------------------------------------------------
+
+# ShellCheck Wiki: https://github.com/koalaman/shellcheck/wiki
+# Shell Scripting Guide: docs/gobernanza/estandares/shell-scripting-guide.md
+# ADR 0005: docs/diseno_solucion/arquitectura_sistemas/adr/0005-estandar-shell-scripting.md

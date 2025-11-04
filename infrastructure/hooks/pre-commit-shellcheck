@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+#
+# Git Pre-Commit Hook: ShellCheck Validation
+# Description: Validates modified shell scripts against Shell Scripting Guide v2.1
+# Usage: Automatically runs on 'git commit'
+# Installation: Run scripts/bash/install-git-hooks.sh
+#
+# This hook enforces Shell Scripting Standards defined in:
+# - ADR 0005: docs/diseno_solucion/arquitectura_sistemas/adr/0005-estandar-shell-scripting.md
+# - Guide: docs/gobernanza/estandares/shell-scripting-guide.md
+
+set -euo pipefail
+
+# -----------------------------------------------------------------------------
+# CONFIGURATION
+# -----------------------------------------------------------------------------
+
+readonly HOOK_NAME="pre-commit-shellcheck"
+readonly RED='\033[0;31m'
+readonly YELLOW='\033[1;33m'
+readonly GREEN='\033[0;32m'
+readonly NC='\033[0m' # No Color
+
+# Enable colors only if terminal supports it
+if [ ! -t 1 ]; then
+    readonly RED=''
+    readonly YELLOW=''
+    readonly GREEN=''
+    readonly NC=''
+fi
+
+# -----------------------------------------------------------------------------
+# LOGGING
+# -----------------------------------------------------------------------------
+
+log_info() {
+    printf '[INFO] %s\n' "$*"
+}
+
+log_error() {
+    printf "${RED}[ERROR]${NC} %s\n" "$*" >&2
+}
+
+log_warn() {
+    printf "${YELLOW}[WARN]${NC} %s\n" "$*"
+}
+
+log_success() {
+    printf "${GREEN}[SUCCESS]${NC} %s\n" "$*"
+}
+
+# -----------------------------------------------------------------------------
+# VALIDATION FUNCTIONS
+# -----------------------------------------------------------------------------
+
+# Check if shellcheck is installed
+check_shellcheck_installed() {
+    if ! command -v shellcheck >/dev/null 2>&1; then
+        log_error "ShellCheck is not installed"
+        log_info "Please install ShellCheck:"
+        log_info "  Ubuntu/Debian: apt-get install shellcheck"
+        log_info "  macOS: brew install shellcheck"
+        log_info "  Or skip this hook with: git commit --no-verify"
+        return 1
+    fi
+    return 0
+}
+
+# Validate a single shell script
+validate_script() {
+    local file="$1"
+    local status=0
+
+    log_info "Checking: $file"
+
+    # Check shebang
+    if ! head -n1 "$file" | grep -qE '^#!/.*/((bash)|(sh))$'; then
+        log_error "$file: Invalid or missing shebang"
+        status=1
+    fi
+
+    # Check for set -e at minimum
+    if ! grep -qE '^set -[a-z]*e' "$file"; then
+        log_error "$file: Missing 'set -e' (minimum error handling)"
+        status=1
+    fi
+
+    # Run shellcheck
+    if ! shellcheck --severity=error "$file"; then
+        log_error "$file: ShellCheck validation failed"
+        status=1
+    fi
+
+    return $status
+}
+
+# -----------------------------------------------------------------------------
+# MAIN LOGIC
+# -----------------------------------------------------------------------------
+
+main() {
+    log_info "Running Shell Script validation..."
+    printf '\n'
+
+    # Check if shellcheck is installed
+    if ! check_shellcheck_installed; then
+        exit 1
+    fi
+
+    # Get list of staged .sh files
+    local staged_files
+    staged_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.sh$' || true)
+
+    if [ -z "$staged_files" ]; then
+        log_info "No shell scripts to validate"
+        exit 0
+    fi
+
+    log_info "Found shell scripts to validate:"
+    printf '%s\n' "$staged_files"
+    printf '\n'
+
+    # Validate each file
+    local failed=0
+    local file
+    while IFS= read -r file; do
+        if [ -f "$file" ]; then
+            if ! validate_script "$file"; then
+                failed=1
+            fi
+            printf '\n'
+        fi
+    done <<< "$staged_files"
+
+    # Report results
+    if [ $failed -eq 0 ]; then
+        log_success "All shell scripts passed validation"
+        exit 0
+    else
+        log_error "Shell script validation failed"
+        printf '\n'
+        log_info "Please fix the issues above or:"
+        log_info "  - Run: ./scripts/bash/validate-shell-scripts.sh --fix"
+        log_info "  - See: docs/gobernanza/estandares/shell-scripting-guide.md"
+        log_info "  - Skip hook (not recommended): git commit --no-verify"
+        exit 1
+    fi
+}
+
+# -----------------------------------------------------------------------------
+# ENTRY POINT
+# -----------------------------------------------------------------------------
+
+main "$@"
