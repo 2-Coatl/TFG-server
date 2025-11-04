@@ -39,6 +39,16 @@
   href: tareas_analisis/readme.md
 - name: Diseño de la Solución
   href: diseno_solucion/readme.md
+  items:
+    - name: ADRs (Architecture Decision Records)
+      href: diseno_solucion/arquitectura_sistemas/adr/README.md
+      items:
+        - name: ADR 0001 - Codex CLI
+          href: diseno_solucion/arquitectura_sistemas/adr/0001-ejecucion-codex.md
+        - name: ADR 0002 - Migración a Makefile
+          href: diseno_solucion/arquitectura_sistemas/adr/0002-migracion-makefile.md
+        - name: ADR 0003 - Servidor MCP en Shell
+          href: diseno_solucion/arquitectura_sistemas/adr/0003-servidor-mcp-shell.md
 - name: Implementación Técnica
   href: implementacion/readme.md
   items:
@@ -47,6 +57,10 @@
       items:
         - name: Desarrollo guiado por especificaciones
           href: implementacion/backend/guias_desarrollo/spec-driven-development.md
+    - name: Infrastructure
+      items:
+        - name: Servidor MCP (Model Context Protocol)
+          href: implementacion/infrastructure/mcp-server.md
 - name: Validación y Evaluación
   href: validacion_evaluacion/readme.md
 - name: Gobernanza de Requisitos

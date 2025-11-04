@@ -80,12 +80,28 @@ Los git hooks instalados con `make install-hooks` (o `./scripts/bash/spec-hooks-
 
 Consulta la documentación completa en `docs/automation/ci-cd.md`.
 
+## 🤖 Model Context Protocol (MCP)
+
+El proyecto incluye un **servidor MCP** implementado completamente en Shell para permitir que asistentes de IA (Claude Code, Cursor, etc.) interactúen inteligentemente con el repositorio.
+
+**Herramientas MCP disponibles**:
+- `analyze_requirements`: Analiza requisitos contra ISO 29148/BABOK/PMBOK
+- `run_ci_pipeline`: Ejecuta pipeline CI completo
+- `scan_shell_quality`: Analiza calidad de scripts Shell
+- `validate_project_structure`: Valida estructura del proyecto
+- `list_governance_docs`: Lista documentos de gobernanza
+
+El servidor se configura automáticamente al abrir el proyecto en devcontainer. Ver documentación completa en:
+- [Servidor MCP - Guía de Implementación](docs/implementacion/infrastructure/mcp-server.md)
+- [ADR 0003: Servidor MCP en Shell](docs/diseno_solucion/arquitectura_sistemas/adr/0003-servidor-mcp-shell.md)
+
 ## Documentación de decisiones
 
-Las decisiones arquitectónicas se registran en `docs/adr`:
+Las decisiones arquitectónicas se registran en `docs/diseno_solucion/arquitectura_sistemas/adr/`:
 
-- [ADR 0002: Migración a Makefile](docs/adr/0002-migracion-makefile.md) - Sistema actual de automatización
-- [ADR 0001: Codex CLI](docs/adr/0001-ejecucion-codex.md) - **DEPRECADO** (reemplazado por Makefile)
+- [ADR 0003: Servidor MCP en Shell](docs/diseno_solucion/arquitectura_sistemas/adr/0003-servidor-mcp-shell.md) - Integración con asistentes de IA
+- [ADR 0002: Migración a Makefile](docs/diseno_solucion/arquitectura_sistemas/adr/0002-migracion-makefile.md) - Sistema actual de automatización
+- [ADR 0001: Codex CLI](docs/diseno_solucion/arquitectura_sistemas/adr/0001-ejecucion-codex.md) - **DEPRECADO** (reemplazado por Makefile)
 
 Para ampliar la comprensión sobre la estructura documental y su alineación con marcos de análisis de negocio y gestión de proyectos, revisa los análisis en `docs/analisis/`:
 
