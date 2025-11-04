@@ -13,7 +13,13 @@ Herramienta monolítica para ejecutar tareas de soporte al desarrollo, implement
 - **bats-core**: Suite de pruebas automatizadas
 - **shellcheck**: Análisis estático de scripts shell
 - **markdownlint-cli2**: Validación de archivos Markdown
-- **docfx**: Generación de documentación
+- **mkdocs**: Generación de documentación
+  - mkdocs-material: Theme Material Design
+  - mkdocs-git-revision-date-localized-plugin: Fechas de última modificación
+
+```bash
+pip install -r requirements-docs.txt
+```
 
 Para verificar dependencias instaladas:
 

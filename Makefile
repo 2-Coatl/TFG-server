@@ -135,7 +135,7 @@ clean:
 check-deps:
 	@echo -e "$(COLOR_INFO)[check-deps] Verificando dependencias...$(COLOR_RESET)"
 	@missing=0; \
-	for cmd in bats shellcheck markdownlint-cli2 docfx; do \
+	for cmd in bats shellcheck markdownlint-cli2 mkdocs; do \
 		if ! command -v $$cmd >/dev/null 2>&1; then \
 			echo -e "$(COLOR_ERROR)  ✗ $$cmd no encontrado$(COLOR_RESET)"; \
 			missing=$$((missing + 1)); \

@@ -1,0 +1,152 @@
+site_name: TFG Server - Ingeniería de Requisitos
+site_description: Herramienta monolítica para ingeniería de requisitos según ISO 29148, BABOK v3 y PMBOK 7
+site_author: Equipo TFG
+repo_url: https://github.com/NestorMonroy/TFG-server
+repo_name: NestorMonroy/TFG-server
+docs_dir: docs
+site_dir: docs/_site
+
+theme:
+  name: material
+  language: es
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.path
+    - navigation.indexes
+    - toc.follow
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    # Modo claro
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    # Modo oscuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+
+plugins:
+  - search:
+      lang: es
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+
+markdown_extensions:
+  # Admonitions (callouts, warnings, notes)
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  # Tabs
+  - pymdownx.tabbed:
+      alternate_style: true
+  # Code highlighting
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  # Tables
+  - tables
+  # Footnotes
+  - footnotes
+  # Attributes
+  - attr_list
+  - md_in_html
+  # Lists
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  # Emoji
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  # Abbreviations
+  - abbr
+  # Meta
+  - meta
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/NestorMonroy/TFG-server
+  generator: false
+
+# Navegación basada en toc.yml
+nav:
+  - Introducción: index.md
+  - Instalación: installation.md
+  - Desarrollo Local: local-development.md
+  - Inicio Rápido: quickstart.md
+  - Triage Framework: triage-framework.md
+
+  - Automatización:
+      - automation/index.md
+      - CI/CD: automation/ci-cd.md
+      - Releases: automation/releases.md
+      - Linting: automation/linting.md
+      - Git Hooks: automation/git-hooks.md
+      - Migración desde GitHub Actions: automation/migracion-github-actions.md
+
+  - Scripts:
+      - scripts/index.md
+      - Desarrollo: scripts/development.md
+      - Mantenimiento: scripts/maintenance.md
+
+  - Necesidades de Negocio (BRS): necesidades_negocio/readme.md
+
+  - Requisitos Integrados:
+      - requisitos/readme.md
+      - Casos de Uso: requisitos/casos_de_uso.md
+
+  - Tareas de Análisis (BABOK): tareas_analisis/readme.md
+
+  - Diseño de la Solución:
+      - diseno_solucion/readme.md
+      - ADRs (Architecture Decision Records):
+          - diseno_solucion/arquitectura_sistemas/adr/README.md
+          - ADR 0001 - Codex CLI: diseno_solucion/arquitectura_sistemas/adr/0001-ejecucion-codex.md
+          - ADR 0002 - Migración a Makefile: diseno_solucion/arquitectura_sistemas/adr/0002-migracion-makefile.md
+          - ADR 0003 - Servidor MCP en Shell: diseno_solucion/arquitectura_sistemas/adr/0003-servidor-mcp-shell.md
+          - ADR 0004 - Migración a MkDocs: diseno_solucion/arquitectura_sistemas/adr/0004-migracion-mkdocs.md
+
+  - Implementación Técnica:
+      - implementacion/readme.md
+      - Guías de desarrollo backend:
+          - implementacion/backend/guias_desarrollo/README.md
+          - Desarrollo guiado por especificaciones: implementacion/backend/guias_desarrollo/spec-driven-development.md
+      - Infrastructure:
+          - Servidor MCP (Model Context Protocol): implementacion/infrastructure/mcp-server.md
+
+  - Validación y Evaluación: validacion_evaluacion/readme.md
+
+  - Gobernanza de Requisitos:
+      - gobernanza/readme.md
+      - Planificación de Releases: gobernanza/planificacion/README.md
+      - Roadmap trimestral: gobernanza/planificacion/roadmap.md
+
+  - Anexos: anexos/readme.md
+  - Plantillas Normativas: plantillas/readme.md

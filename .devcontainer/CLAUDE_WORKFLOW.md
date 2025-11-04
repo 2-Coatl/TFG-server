@@ -13,14 +13,14 @@ make ci
 Este comando ejecuta:
 1. **Lint**: Valida código Shell y Markdown
 2. **Test**: Ejecuta suite BATS y shUnit2
-3. **Docs**: Genera documentación con DocFX
+3. **Docs**: Genera documentación con MkDocs
 
 ## Checklist Obligatorio por Tipo de Cambio
 
 ### 📝 Cambios en Documentación (*.md, docs/)
 
 - [ ] 1. Hacer cambios en archivos
-- [ ] 2. **EJECUTAR**: `make docs` (genera DocFX)
+- [ ] 2. **EJECUTAR**: `make docs` (genera MkDocs)
 - [ ] 3. Verificar que `docs/_site` se generó correctamente
 - [ ] 4. Commit con los cambios + documentación generada
 - [ ] 5. Push
