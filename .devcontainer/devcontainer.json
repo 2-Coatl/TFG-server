@@ -2,5 +2,24 @@
   "name": "tfg-server",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
   "features": {},
-  "postCreateCommand": "./.devcontainer/post-create.sh"
+  "postCreateCommand": "./.devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "mcp.servers": {
+          "tfg-requirements": {
+            "command": "bash",
+            "args": [
+              "${workspaceFolder}/.devcontainer/mcp/server.sh"
+            ],
+            "description": "TFG Requirements Engineering Server - Analiza requisitos, ejecuta CI, valida código Shell"
+          }
+        }
+      },
+      "extensions": [
+        "timonwong.shellcheck",
+        "foxundermoon.shell-format"
+      ]
+    }
+  }
 }
